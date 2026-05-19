@@ -1,70 +1,121 @@
 'use client';
+
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+
+import { HomeNavbar } from '@/components/home/navbar';
+import { NoiseTexture } from '@/components/ui/noise-texture';
+
+const services = [
+  {
+    title: 'Website Development',
+    description: 'Modern, fast, and fully responsive websites',
+    icon: '🌐',
+    accent: '#3B82F6',
+  },
+  {
+    title: 'App Development',
+    description: 'Cross-platform mobile applications',
+    icon: '📱',
+    accent: '#10B981',
+  },
+  {
+    title: 'Machine Learning',
+    description: 'AI models and data science solutions',
+    icon: '🧠',
+    accent: '#A855F7',
+  },
+  {
+    title: 'Research Writing',
+    description: 'Academic and technical research documentation',
+    icon: '📝',
+    accent: '#F59E0B',
+  },
+  {
+    title: 'Chatbot Solutions',
+    description: 'AI-powered conversational agents',
+    icon: '🤖',
+    accent: '#EF4444',
+  },
+  {
+    title: 'Custom Software',
+    description: 'Business solutions and enterprise applications',
+    icon: '💼',
+    accent: '#6366F1',
+  },
+];
+
+const aboutPillars = [
+  {
+    title: 'Intentional Design',
+    description:
+      'Interfaces with personality, clarity, and strong first impressions across desktop and mobile.',
+  },
+  {
+    title: 'Reliable Engineering',
+    description:
+      'Clean builds, responsive layouts, and practical implementation choices that hold up after launch.',
+  },
+  {
+    title: 'Applied AI',
+    description:
+      'Useful automation, chat experiences, and machine-learning features shaped around real business needs.',
+  },
+];
+
+const contactDetails = [
+  {
+    label: 'Email',
+    value: 'hello@hakaluki.devs',
+    href: 'mailto:hello@hakaluki.devs',
+  },
+  {
+    label: 'Location',
+    value: 'Sylhet, Bangladesh',
+  },
+  {
+    label: 'Response',
+    value: 'New project inquiries typically get a reply within 24 hours.',
+  },
+];
 
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+    const handleMouseMove = (event: MouseEvent) => {
+      setMousePosition({ x: event.clientX, y: event.clientY });
     };
+
     window.addEventListener('mousemove', handleMouseMove);
+
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  const services = [
-    {
-      title: 'Website Development',
-      description: 'Modern, fast, and fully responsive websites',
-      icon: '🌐',
-      color: 'from-blue-500 to-cyan-500',
-      accent: '#3B82F6',
-    },
-    {
-      title: 'App Development',
-      description: 'Cross-platform mobile applications',
-      icon: '📱',
-      color: 'from-green-500 to-emerald-500',
-      accent: '#10B981',
-    },
-    {
-      title: 'Machine Learning',
-      description: 'AI models and data science solutions',
-      icon: '🧠',
-      color: 'from-purple-500 to-pink-500',
-      accent: '#A855F7',
-    },
-    {
-      title: 'Research Writing',
-      description: 'Academic and technical research documentation',
-      icon: '📝',
-      color: 'from-yellow-500 to-orange-500',
-      accent: '#F59E0B',
-    },
-    {
-      title: 'Chatbot Solutions',
-      description: 'AI-powered conversational agents',
-      icon: '🤖',
-      color: 'from-red-500 to-rose-500',
-      accent: '#EF4444',
-    },
-    {
-      title: 'Custom Software',
-      description: 'Business solutions and enterprise applications',
-      icon: '💼',
-      color: 'from-indigo-500 to-blue-500',
-      accent: '#6366F1',
-    },
-  ];
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 56);
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;700&display=swap');
+
+        :root {
+          scroll-behavior: smooth;
+        }
 
         .page-root {
           font-family: 'DM Sans', sans-serif;
+          color: #fff;
         }
 
         .brand-name {
@@ -78,17 +129,6 @@ export default function Home() {
           background: rgba(255,255,255,0.04);
         }
 
-        .noise-overlay {
-          position: fixed;
-          inset: 0;
-          pointer-events: none;
-          z-index: 1;
-          opacity: 0.025;
-          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-          background-repeat: repeat;
-          background-size: 128px 128px;
-        }
-
         .service-card {
           position: relative;
           background: rgba(255,255,255,0.03);
@@ -100,22 +140,9 @@ export default function Home() {
           transition: border-color 0.3s ease, background 0.3s ease;
         }
 
-        .service-card::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          opacity: 0;
-          transition: opacity 0.3s ease;
-          border-radius: 16px;
-        }
-
         .service-card:hover {
           border-color: rgba(255,255,255,0.15);
           background: rgba(255,255,255,0.05);
-        }
-
-        .service-card:hover::before {
-          opacity: 1;
         }
 
         .tag-pill {
@@ -146,6 +173,7 @@ export default function Home() {
           font-size: 15px;
           letter-spacing: 0.01em;
           border: none;
+          text-decoration: none;
           cursor: pointer;
           transition: transform 0.15s ease, box-shadow 0.2s ease;
           box-shadow: 0 0 0 0 rgba(255,255,255,0);
@@ -201,27 +229,147 @@ export default function Home() {
           color: rgba(255,255,255,0.3);
           margin-bottom: 16px;
         }
+
+        .section-anchor {
+          scroll-margin-top: 120px;
+        }
+
+        .about-panel,
+        .contact-card {
+          position: relative;
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 28px;
+          padding: 32px;
+          overflow: hidden;
+        }
+
+        .about-panel::before,
+        .contact-card::before {
+          content: '';
+          position: absolute;
+          left: 24px;
+          right: 24px;
+          bottom: 0;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(139,92,246,0.45), transparent);
+        }
+
+        .about-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 16px;
+          margin-top: 32px;
+        }
+
+        .about-card {
+          background: rgba(255,255,255,0.02);
+          border: 1px solid rgba(255,255,255,0.06);
+          border-radius: 22px;
+          padding: 22px;
+        }
+
+        .about-card-title {
+          font-family: 'Syne', sans-serif;
+          font-size: 18px;
+          color: rgba(255,255,255,0.92);
+          margin-bottom: 10px;
+        }
+
+        .about-card-text {
+          font-size: 14px;
+          line-height: 1.7;
+          color: rgba(255,255,255,0.55);
+        }
+
+        .contact-grid {
+          display: grid;
+          grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+          gap: 18px;
+          max-width: 1040px;
+          margin: 0 auto;
+        }
+
+        .contact-list {
+          display: grid;
+          gap: 14px;
+          margin-top: 2px;
+        }
+
+        .contact-item {
+          padding: 16px 0 0;
+          border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .contact-item:first-child {
+          padding-top: 0;
+          border-top: none;
+        }
+
+        .contact-label {
+          display: block;
+          margin-bottom: 6px;
+          font-family: 'Syne', sans-serif;
+          font-size: 12px;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.34);
+        }
+
+        .contact-value,
+        .contact-value-link {
+          color: rgba(255,255,255,0.8);
+          font-size: 16px;
+          line-height: 1.7;
+        }
+
+        .contact-value-link {
+          text-decoration: none;
+        }
+
+        .contact-value-link:hover {
+          color: #fff;
+        }
+
+        @media (max-width: 900px) {
+          .about-grid,
+          .contact-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .about-panel,
+          .contact-card {
+            padding: 24px;
+          }
+        }
       `}</style>
 
       <main
         className="page-root min-h-screen relative overflow-hidden"
         style={{ background: '#08080f' }}
       >
-        {/* Noise texture */}
-        <div className="noise-overlay" />
+        <NoiseTexture
+          aria-hidden="true"
+          className="fixed inset-0 z-[1] opacity-[0.06]"
+          frequency={0.85}
+          octaves={4}
+          slope={0.18}
+          noiseOpacity={0.22}
+        />
 
-        {/* Radial ambient light */}
         <div
           style={{
             position: 'fixed',
             inset: 0,
-            background: 'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(120,60,220,0.18) 0%, transparent 70%)',
+            background:
+              'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(120,60,220,0.18) 0%, transparent 70%)',
             pointerEvents: 'none',
             zIndex: 0,
           }}
         />
 
-        {/* Mouse glow */}
         <div
           style={{
             position: 'fixed',
@@ -236,173 +384,291 @@ export default function Home() {
           }}
         />
 
-        {/* Subtle grid lines */}
-        {[0, 25, 50, 75, 100].map((pos) => (
+        <HomeNavbar isScrolled={isScrolled} />
+
+        {[0, 25, 50, 75, 100].map((position) => (
           <div
-            key={pos}
+            key={position}
             className="grid-line"
-            style={{ left: `${pos}%`, top: 0, bottom: 0, width: '1px' }}
+            style={{ left: `${position}%`, top: 0, bottom: 0, width: '1px' }}
           />
         ))}
 
-        <div className="container mx-auto px-6 py-24 relative" style={{ zIndex: 10 }}>
-
-          {/* Hero */}
-          <motion.div
-            initial={{ opacity: 0, y: -30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="text-center mb-24"
-          >
-            {/* Badge */}
+        <div className="container mx-auto px-6 pt-40 pb-24 relative" style={{ zIndex: 10 }}>
+          <section id="home" className="section-anchor">
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.1 }}
-              className="flex justify-center mb-8"
+              initial={{ opacity: 0, y: -30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              className="text-center mb-24"
             >
-              <span className="tag-pill">
-                <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#4ade80', display: 'inline-block' }} />
-                Coming Soon
-              </span>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.1 }}
+                className="flex justify-center mb-8"
+              >
+                <span className="tag-pill">
+                  <span
+                    style={{
+                      width: 6,
+                      height: 6,
+                      borderRadius: '50%',
+                      background: '#4ade80',
+                      display: 'inline-block',
+                    }}
+                  />
+                  Creative Studio
+                </span>
+              </motion.div>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="brand-name mb-6"
+                style={{
+                  fontSize: 'clamp(3rem, 10vw, 7rem)',
+                  color: '#fff',
+                  lineHeight: 1,
+                }}
+              >
+                Hakaluki
+                <span style={{ color: 'rgba(139,92,246,0.9)' }}>.</span>
+                <br />
+                Devs
+              </motion.h1>
+
+              <motion.div
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ delay: 0.4, duration: 0.6 }}
+                className="divider-line"
+              />
+
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+                style={{
+                  fontSize: '17px',
+                  color: 'rgba(255,255,255,0.5)',
+                  maxWidth: '560px',
+                  margin: '0 auto 24px',
+                  lineHeight: 1.7,
+                }}
+              >
+                A focused digital studio building websites, apps, and AI-powered experiences
+                with thoughtful execution and a calm visual edge.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.65 }}
+                className="flex flex-wrap justify-center gap-2"
+              >
+                {['Website', 'App', 'AI', 'Research', 'Chatbot'].map((tag) => (
+                  <span key={tag} className="tag-pill">
+                    {tag}
+                  </span>
+                ))}
+              </motion.div>
+            </motion.div>
+          </section>
+
+          <section id="services" className="section-anchor">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.75 }}
+              className="text-center mb-10"
+            >
+              <p className="section-label">Our Services</p>
             </motion.div>
 
-            {/* Brand name */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="brand-name mb-6"
-              style={{
-                fontSize: 'clamp(3rem, 10vw, 7rem)',
-                color: '#fff',
-                lineHeight: 1.0,
-              }}
-            >
-              Hakaluki
-              <span style={{ color: 'rgba(139,92,246,0.9)' }}>.</span>
-              <br />
-              Devs
-            </motion.h1>
-
-            {/* Divider */}
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              className="divider-line"
-            />
-
-            {/* Tagline */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              style={{
-                fontSize: '17px',
-                color: 'rgba(255,255,255,0.5)',
-                maxWidth: '460px',
-                margin: '0 auto 24px',
-                lineHeight: 1.7,
-              }}
-            >
-              Where the freshness of Hakaluki Haor meets modern technology
-            </motion.p>
-
-            {/* Tags */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.65 }}
-              className="flex flex-wrap justify-center gap-2"
+              transition={{ delay: 0.8 }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto"
             >
-              {['Website', 'App', 'AI', 'Research', 'Chatbot'].map((tag, i) => (
-                <span key={i} className="tag-pill">{tag}</span>
+              {services.map((service, index) => (
+                <motion.div
+                  key={service.title}
+                  initial={{ opacity: 0, y: 32 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    delay: 0.85 + index * 0.08,
+                    duration: 0.6,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  whileHover={{
+                    scale: 1.025,
+                    transition: { type: 'spring', stiffness: 400, damping: 22 },
+                  }}
+                  className="service-card"
+                >
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      right: 0,
+                      width: 80,
+                      height: 80,
+                      background: `radial-gradient(circle at top right, ${service.accent}18, transparent 70%)`,
+                      borderRadius: '0 16px 0 0',
+                      pointerEvents: 'none',
+                    }}
+                  />
+
+                  <div className="icon-wrap">{service.icon}</div>
+
+                  <h3 className="service-title">{service.title}</h3>
+                  <p className="service-desc">{service.description}</p>
+
+                  <div
+                    style={{
+                      position: 'absolute',
+                      bottom: 0,
+                      left: 24,
+                      right: 24,
+                      height: '1px',
+                      background: `linear-gradient(90deg, transparent, ${service.accent}50, transparent)`,
+                    }}
+                  />
+                </motion.div>
               ))}
             </motion.div>
-          </motion.div>
+          </section>
 
-          {/* Services label */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.75 }}
-            className="text-center mb-10"
+          <motion.section
+            id="about"
+            className="section-anchor mt-28 max-w-5xl mx-auto"
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
-            <p className="section-label">Our Services</p>
-          </motion.div>
+            <p className="section-label text-center">About Us</p>
 
-          {/* Services Grid */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto"
+            <div className="about-panel">
+              <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] items-start">
+                <div>
+                  <h2
+                    className="brand-name"
+                    style={{
+                      fontSize: 'clamp(2rem, 4.5vw, 3.6rem)',
+                      lineHeight: 1.05,
+                      marginBottom: '18px',
+                    }}
+                  >
+                    Small team energy, senior-level execution.
+                  </h2>
+
+                  <p
+                    style={{
+                      fontSize: '16px',
+                      lineHeight: 1.8,
+                      color: 'rgba(255,255,255,0.58)',
+                      maxWidth: '690px',
+                    }}
+                  >
+                    Hakaluki.Devs blends product thinking, sharp visuals, and practical
+                    engineering. We help founders and teams ship digital experiences that feel
+                    polished, fast, and confidently built.
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap gap-2 lg:justify-end">
+                  <span className="tag-pill">Landing Pages</span>
+                  <span className="tag-pill">Mobile Apps</span>
+                  <span className="tag-pill">Automation</span>
+                  <span className="tag-pill">AI Workflows</span>
+                </div>
+              </div>
+
+              <div className="about-grid">
+                {aboutPillars.map((pillar) => (
+                  <div key={pillar.title} className="about-card">
+                    <h3 className="about-card-title">{pillar.title}</h3>
+                    <p className="about-card-text">{pillar.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.section>
+
+          <motion.section
+            id="contact"
+            className="section-anchor mt-28"
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
-            {services.map((service, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 32 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.85 + idx * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ scale: 1.025, transition: { type: 'spring', stiffness: 400, damping: 22 } }}
-                className="service-card"
-              >
-                {/* Accent corner */}
-                <div
+            <p className="section-label text-center">Contact</p>
+
+            <div className="contact-grid">
+              <div className="contact-card">
+                <h2
+                  className="brand-name"
                   style={{
-                    position: 'absolute',
-                    top: 0,
-                    right: 0,
-                    width: 80,
-                    height: 80,
-                    background: `radial-gradient(circle at top right, ${service.accent}18, transparent 70%)`,
-                    borderRadius: '0 16px 0 0',
-                    pointerEvents: 'none',
+                    fontSize: 'clamp(2rem, 4vw, 3.3rem)',
+                    lineHeight: 1.05,
+                    marginBottom: '18px',
                   }}
-                />
+                >
+                  Ready to plan your next build?
+                </h2>
 
-                <div className="icon-wrap">{service.icon}</div>
-
-                <h3 className="service-title">{service.title}</h3>
-                <p className="service-desc">{service.description}</p>
-
-                {/* Bottom indicator */}
-                <div
+                <p
                   style={{
-                    position: 'absolute',
-                    bottom: 0,
-                    left: 24,
-                    right: 24,
-                    height: '1px',
-                    background: `linear-gradient(90deg, transparent, ${service.accent}50, transparent)`,
+                    fontSize: '16px',
+                    lineHeight: 1.8,
+                    color: 'rgba(255,255,255,0.58)',
+                    maxWidth: '560px',
                   }}
-                />
-              </motion.div>
-            ))}
-          </motion.div>
+                >
+                  Share the idea, product, or business goal you are working toward. We can map
+                  the scope, recommend a direction, and start the conversation with a simple
+                  meeting.
+                </p>
 
-          {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.3, type: 'spring', stiffness: 180 }}
-            className="text-center mt-20"
-          >
-            <motion.button
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => alert('We\'re launching soon! 🚀\nShare your idea with us: hello@hakaluki.devs')}
-              className="cta-btn"
-            >
-              Start Your Project
-              <span style={{ fontSize: 18, lineHeight: 1 }}>→</span>
-            </motion.button>
+                <motion.a
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.98 }}
+                  href="mailto:hello@hakaluki.devs?subject=Schedule%20a%20Meeting"
+                  className="cta-btn mt-8"
+                >
+                  Schedule a Meeting
+                  <span style={{ fontSize: 18, lineHeight: 1 }}>↗</span>
+                </motion.a>
+              </div>
+
+              <div className="contact-card">
+                <div className="contact-list">
+                  {contactDetails.map((detail) => (
+                    <div key={detail.label} className="contact-item">
+                      <span className="contact-label">{detail.label}</span>
+                      {detail.href ? (
+                        <a href={detail.href} className="contact-value-link">
+                          {detail.value}
+                        </a>
+                      ) : (
+                        <span className="contact-value">{detail.value}</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
 
             <motion.p
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.5 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
               style={{
                 marginTop: '28px',
                 color: 'rgba(255,255,255,0.2)',
@@ -410,12 +676,12 @@ export default function Home() {
                 fontFamily: "'Syne', sans-serif",
                 letterSpacing: '0.1em',
                 textTransform: 'uppercase',
+                textAlign: 'center',
               }}
             >
-              © 2025 Hakaluki.Devs &nbsp;·&nbsp; Energy, Creativity, Excellence
+              © 2026 Hakaluki.Devs · Energy, Creativity, Excellence
             </motion.p>
-          </motion.div>
-
+          </motion.section>
         </div>
       </main>
     </>
