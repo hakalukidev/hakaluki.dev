@@ -34,7 +34,7 @@
 }
 
 .scrolled {
-  width: min(calc(100vw - 24px), 900px);
+  width: min(calc(100vw - 24px), 960px);
   margin-top: 12px;
   padding: 14px 18px;
   border-radius: 999px;
