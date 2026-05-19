@@ -1,0 +1,241 @@
+.siteHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  z-index: 40;
+  pointer-events: none;
+}
+
+.navShell {
+  pointer-events: auto;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  column-gap: 18px;
+  width: 100%;
+  margin: 0;
+  padding: 18px 24px 16px;
+  border: 1px solid transparent;
+  border-radius: 0;
+  background: linear-gradient(180deg, rgba(8, 8, 15, 0.72), rgba(8, 8, 15, 0.28));
+  backdrop-filter: blur(12px);
+  box-shadow: none;
+  transition:
+    width 0.35s ease,
+    margin 0.35s ease,
+    padding 0.35s ease,
+    border-radius 0.35s ease,
+    background 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.scrolled {
+  width: min(calc(100vw - 24px), 900px);
+  margin-top: 12px;
+  padding: 14px 18px;
+  border-radius: 999px;
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(10, 10, 18, 0.84);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.36);
+}
+
+.brandLockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  text-decoration: none;
+  min-width: 0;
+  flex-shrink: 0;
+}
+
+.brandMark {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #8b5cf6 0%, #4ade80 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 30px rgba(139, 92, 246, 0.3);
+}
+
+.brandMarkCore {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: #08080f;
+}
+
+.brandMarkCore::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  right: -7px;
+  width: 15px;
+  height: 15px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.brandCopy {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.brandCopyMuted {
+  color: rgba(255, 255, 255, 0.56);
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 0;
+  justify-self: center;
+  flex-wrap: nowrap;
+}
+
+.navLink {
+  padding: 10px 14px;
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.72);
+  text-decoration: none;
+  font-size: 15px;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.navLink:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.navCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffffff 0%, #ddd6fe 100%);
+  color: #0a0a0f;
+  text-decoration: none;
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  justify-self: end;
+  white-space: nowrap;
+  box-shadow: 0 12px 30px rgba(255, 255, 255, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.navCta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 36px rgba(255, 255, 255, 0.18);
+}
+
+@media (max-width: 1080px) {
+  .navShell {
+    column-gap: 14px;
+    padding: 16px 18px 14px;
+  }
+
+  .navLinks {
+    gap: 6px;
+  }
+
+  .navLink {
+    padding: 9px 10px;
+    font-size: 14px;
+  }
+
+  .navCta {
+    padding: 11px 16px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 840px) {
+  .navShell {
+    column-gap: 10px;
+  }
+
+  .brandCopy {
+    font-size: 1.35rem;
+  }
+
+  .navLinks {
+    gap: 2px;
+  }
+
+  .navLink {
+    padding: 8px 9px;
+    font-size: 13px;
+  }
+
+  .navCta {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 720px) {
+  .navShell,
+  .scrolled {
+    width: 100%;
+  }
+
+  .navShell {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    padding: 16px;
+  }
+
+  .scrolled {
+    width: min(calc(100vw - 20px), 100%);
+    margin-top: 10px;
+    border-radius: 24px;
+  }
+
+  .brandLockup,
+  .navLinks,
+  .navCta {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .navLinks {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 520px) {
+  .brandCopy {
+    font-size: 1.25rem;
+  }
+
+  .navLinks {
+    gap: 8px;
+  }
+
+  .navLink {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .navCta {
+    width: 100%;
+  }
+}
