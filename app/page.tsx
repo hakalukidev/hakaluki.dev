@@ -115,7 +115,7 @@ export default function Home() {
 
         .page-root {
           font-family: 'DM Sans', sans-serif;
-          color: #fff;
+          color: #1a1a1a;
         }
 
         .brand-name {
@@ -126,13 +126,13 @@ export default function Home() {
 
         .grid-line {
           position: absolute;
-          background: rgba(255,255,255,0.04);
+          background: rgba(0,0,0,0.04);
         }
 
         .service-card {
           position: relative;
-          background: rgba(255,255,255,0.03);
-          border: 1px solid rgba(255,255,255,0.07);
+          background: rgba(0,0,0,0.02);
+          border: 1px solid rgba(0,0,0,0.07);
           border-radius: 16px;
           padding: 2rem;
           cursor: pointer;
@@ -141,8 +141,8 @@ export default function Home() {
         }
 
         .service-card:hover {
-          border-color: rgba(255,255,255,0.15);
-          background: rgba(255,255,255,0.05);
+          border-color: rgba(0,0,0,0.15);
+          background: rgba(0,0,0,0.04);
         }
 
         .tag-pill {
@@ -151,9 +151,9 @@ export default function Home() {
           gap: 6px;
           padding: 6px 14px;
           border-radius: 999px;
-          border: 1px solid rgba(255,255,255,0.12);
-          background: rgba(255,255,255,0.04);
-          color: rgba(255,255,255,0.6);
+          border: 1px solid rgba(0,0,0,0.1);
+          background: rgba(0,0,0,0.03);
+          color: rgba(0,0,0,0.65);
           font-size: 13px;
           font-family: 'Syne', sans-serif;
           font-weight: 500;
@@ -165,8 +165,8 @@ export default function Home() {
           align-items: center;
           gap: 10px;
           padding: 14px 32px;
-          background: #fff;
-          color: #0a0a0f;
+          background: #1a1a1a;
+          color: #ffffff;
           border-radius: 999px;
           font-family: 'Syne', sans-serif;
           font-weight: 700;
@@ -176,11 +176,11 @@ export default function Home() {
           text-decoration: none;
           cursor: pointer;
           transition: transform 0.15s ease, box-shadow 0.2s ease;
-          box-shadow: 0 0 0 0 rgba(255,255,255,0);
+          box-shadow: 0 0 0 0 rgba(0,0,0,0);
         }
 
         .cta-btn:hover {
-          box-shadow: 0 8px 40px rgba(255,255,255,0.15);
+          box-shadow: 0 8px 40px rgba(0,0,0,0.15);
         }
 
         .icon-wrap {
@@ -191,7 +191,7 @@ export default function Home() {
           align-items: center;
           justify-content: center;
           font-size: 26px;
-          background: rgba(255,255,255,0.06);
+          background: rgba(0,0,0,0.04);
           margin-bottom: 20px;
           transition: transform 0.25s ease;
         }
@@ -204,20 +204,20 @@ export default function Home() {
           font-family: 'Syne', sans-serif;
           font-weight: 600;
           font-size: 16px;
-          color: rgba(255,255,255,0.92);
+          color: rgba(0,0,0,0.85);
           margin-bottom: 8px;
         }
 
         .service-desc {
           font-size: 14px;
-          color: rgba(255,255,255,0.45);
+          color: rgba(0,0,0,0.55);
           line-height: 1.6;
         }
 
         .divider-line {
           width: 48px;
           height: 2px;
-          background: linear-gradient(90deg, rgba(255,255,255,0.5), transparent);
+          background: linear-gradient(90deg, rgba(0,0,0,0.4), transparent);
           margin: 0 auto 20px;
         }
 
@@ -226,7 +226,7 @@ export default function Home() {
           font-size: 11px;
           letter-spacing: 0.18em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.3);
+          color: rgba(0,0,0,0.4);
           margin-bottom: 16px;
         }
 
@@ -237,8 +237,8 @@ export default function Home() {
         .about-panel,
         .contact-card {
           position: relative;
-          background: rgba(255,255,255,0.03);
-          border: 1px solid rgba(255,255,255,0.08);
+          background: rgba(0,0,0,0.02);
+          border: 1px solid rgba(0,0,0,0.06);
           border-radius: 28px;
           padding: 32px;
           overflow: hidden;
@@ -263,8 +263,8 @@ export default function Home() {
         }
 
         .about-card {
-          background: rgba(255,255,255,0.02);
-          border: 1px solid rgba(255,255,255,0.06);
+          background: rgba(0,0,0,0.01);
+          border: 1px solid rgba(0,0,0,0.05);
           border-radius: 22px;
           padding: 22px;
         }
@@ -272,14 +272,14 @@ export default function Home() {
         .about-card-title {
           font-family: 'Syne', sans-serif;
           font-size: 18px;
-          color: rgba(255,255,255,0.92);
+          color: rgba(0,0,0,0.85);
           margin-bottom: 10px;
         }
 
         .about-card-text {
           font-size: 14px;
           line-height: 1.7;
-          color: rgba(255,255,255,0.55);
+          color: rgba(0,0,0,0.55);
         }
 
         .contact-grid {
@@ -298,7 +298,7 @@ export default function Home() {
 
         .contact-item {
           padding: 16px 0 0;
-          border-top: 1px solid rgba(255,255,255,0.06);
+          border-top: 1px solid rgba(0,0,0,0.06);
         }
 
         .contact-item:first-child {
@@ -313,12 +313,12 @@ export default function Home() {
           font-size: 12px;
           letter-spacing: 0.12em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.34);
+          color: rgba(0,0,0,0.4);
         }
 
         .contact-value,
         .contact-value-link {
-          color: rgba(255,255,255,0.8);
+          color: rgba(0,0,0,0.7);
           font-size: 16px;
           line-height: 1.7;
         }
@@ -328,7 +328,7 @@ export default function Home() {
         }
 
         .contact-value-link:hover {
-          color: #fff;
+          color: #1a1a1a;
         }
 
         @media (max-width: 900px) {
@@ -348,11 +348,11 @@ export default function Home() {
 
       <main
         className="page-root min-h-screen relative overflow-hidden"
-        style={{ background: '#08080f' }}
+        style={{ background: '#ffffff' }}
       >
         <NoiseTexture
           aria-hidden="true"
-          className="fixed inset-0 z-[1] opacity-[0.06]"
+          className="fixed inset-0 z-[1] opacity-[0.03]"
           frequency={0.85}
           octaves={4}
           slope={0.18}
@@ -364,7 +364,7 @@ export default function Home() {
             position: 'fixed',
             inset: 0,
             background:
-              'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(120,60,220,0.18) 0%, transparent 70%)',
+              'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(139,92,246,0.06) 0%, transparent 70%)',
             pointerEvents: 'none',
             zIndex: 0,
           }}
@@ -376,7 +376,7 @@ export default function Home() {
             width: '480px',
             height: '480px',
             borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(139,92,246,0.04) 0%, transparent 70%)',
             pointerEvents: 'none',
             zIndex: 0,
             transform: `translate(${mousePosition.x - 240}px, ${mousePosition.y - 240}px)`,
@@ -414,7 +414,7 @@ export default function Home() {
                       width: 6,
                       height: 6,
                       borderRadius: '50%',
-                      background: '#4ade80',
+                      background: '#10b981',
                       display: 'inline-block',
                     }}
                   />
@@ -429,7 +429,7 @@ export default function Home() {
                 className="brand-name mb-6"
                 style={{
                   fontSize: 'clamp(3rem, 10vw, 7rem)',
-                  color: '#fff',
+                  color: '#1a1a1a',
                   lineHeight: 1,
                 }}
               >
@@ -452,7 +452,7 @@ export default function Home() {
                 transition={{ delay: 0.5 }}
                 style={{
                   fontSize: '17px',
-                  color: 'rgba(255,255,255,0.5)',
+                  color: 'rgba(0,0,0,0.55)',
                   maxWidth: '560px',
                   margin: '0 auto 24px',
                   lineHeight: 1.7,
@@ -516,7 +516,7 @@ export default function Home() {
                       right: 0,
                       width: 80,
                       height: 80,
-                      background: `radial-gradient(circle at top right, ${service.accent}18, transparent 70%)`,
+                      background: `radial-gradient(circle at top right, ${service.accent}12, transparent 70%)`,
                       borderRadius: '0 16px 0 0',
                       pointerEvents: 'none',
                     }}
@@ -534,7 +534,7 @@ export default function Home() {
                       left: 24,
                       right: 24,
                       height: '1px',
-                      background: `linear-gradient(90deg, transparent, ${service.accent}50, transparent)`,
+                      background: `linear-gradient(90deg, transparent, ${service.accent}30, transparent)`,
                     }}
                   />
                 </motion.div>
@@ -561,6 +561,7 @@ export default function Home() {
                       fontSize: 'clamp(2rem, 4.5vw, 3.6rem)',
                       lineHeight: 1.05,
                       marginBottom: '18px',
+                      color: '#1a1a1a',
                     }}
                   >
                     Small team energy, senior-level execution.
@@ -570,7 +571,7 @@ export default function Home() {
                     style={{
                       fontSize: '16px',
                       lineHeight: 1.8,
-                      color: 'rgba(255,255,255,0.58)',
+                      color: 'rgba(0,0,0,0.55)',
                       maxWidth: '690px',
                     }}
                   >
@@ -617,6 +618,7 @@ export default function Home() {
                     fontSize: 'clamp(2rem, 4vw, 3.3rem)',
                     lineHeight: 1.05,
                     marginBottom: '18px',
+                    color: '#1a1a1a',
                   }}
                 >
                   Ready to plan your next build?
@@ -626,7 +628,7 @@ export default function Home() {
                   style={{
                     fontSize: '16px',
                     lineHeight: 1.8,
-                    color: 'rgba(255,255,255,0.58)',
+                    color: 'rgba(0,0,0,0.55)',
                     maxWidth: '560px',
                   }}
                 >
@@ -671,7 +673,7 @@ export default function Home() {
               transition={{ delay: 0.2 }}
               style={{
                 marginTop: '28px',
-                color: 'rgba(255,255,255,0.2)',
+                color: 'rgba(0,0,0,0.25)',
                 fontSize: '12px',
                 fontFamily: "'Syne', sans-serif",
                 letterSpacing: '0.1em',
