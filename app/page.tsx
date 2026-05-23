@@ -2,82 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import './styles/home.css';
 
 import { HomeNavbar } from '@/components/home/navbar';
 import { NoiseTexture } from '@/components/ui/noise-texture';
-
-const services = [
-  {
-    title: 'Website Development',
-    description: 'Modern, fast, and fully responsive websites',
-    icon: '🌐',
-    accent: '#3B82F6',
-  },
-  {
-    title: 'App Development',
-    description: 'Cross-platform mobile applications',
-    icon: '📱',
-    accent: '#10B981',
-  },
-  {
-    title: 'Machine Learning',
-    description: 'AI models and data science solutions',
-    icon: '🧠',
-    accent: '#A855F7',
-  },
-  {
-    title: 'Research Writing',
-    description: 'Academic and technical research documentation',
-    icon: '📝',
-    accent: '#F59E0B',
-  },
-  {
-    title: 'Chatbot Solutions',
-    description: 'AI-powered conversational agents',
-    icon: '🤖',
-    accent: '#EF4444',
-  },
-  {
-    title: 'Custom Software',
-    description: 'Business solutions and enterprise applications',
-    icon: '💼',
-    accent: '#6366F1',
-  },
-];
-
-const aboutPillars = [
-  {
-    title: 'Intentional Design',
-    description:
-      'Interfaces with personality, clarity, and strong first impressions across desktop and mobile.',
-  },
-  {
-    title: 'Reliable Engineering',
-    description:
-      'Clean builds, responsive layouts, and practical implementation choices that hold up after launch.',
-  },
-  {
-    title: 'Applied AI',
-    description:
-      'Useful automation, chat experiences, and machine-learning features shaped around real business needs.',
-  },
-];
-
-const contactDetails = [
-  {
-    label: 'Email',
-    value: 'hello@hakaluki.devs',
-    href: 'mailto:hello@hakaluki.devs',
-  },
-  {
-    label: 'Location',
-    value: 'Sylhet, Bangladesh',
-  },
-  {
-    label: 'Response',
-    value: 'New project inquiries typically get a reply within 24 hours.',
-  },
-];
+import { services } from './data/services';
+import { aboutPillars } from './data/aboutPillars';
+import { contactDetails } from './data/contactDetails';
 
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -106,253 +37,13 @@ export default function Home() {
 
   return (
     <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;700&display=swap');
-
-        :root {
-          scroll-behavior: smooth;
-        }
-
-        .page-root {
-          font-family: 'DM Sans', sans-serif;
-          color: #fff;
-        }
-
-        .brand-name {
-          font-family: 'Syne', sans-serif;
-          font-weight: 800;
-          letter-spacing: -0.02em;
-        }
-
-        .grid-line {
-          position: absolute;
-          background: rgba(255,255,255,0.04);
-        }
-
-        .service-card {
-          position: relative;
-          background: rgba(255,255,255,0.03);
-          border: 1px solid rgba(255,255,255,0.07);
-          border-radius: 16px;
-          padding: 2rem;
-          cursor: pointer;
-          overflow: hidden;
-          transition: border-color 0.3s ease, background 0.3s ease;
-        }
-
-        .service-card:hover {
-          border-color: rgba(255,255,255,0.15);
-          background: rgba(255,255,255,0.05);
-        }
-
-        .tag-pill {
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          padding: 6px 14px;
-          border-radius: 999px;
-          border: 1px solid rgba(255,255,255,0.12);
-          background: rgba(255,255,255,0.04);
-          color: rgba(255,255,255,0.6);
-          font-size: 13px;
-          font-family: 'Syne', sans-serif;
-          font-weight: 500;
-          letter-spacing: 0.02em;
-        }
-
-        .cta-btn {
-          display: inline-flex;
-          align-items: center;
-          gap: 10px;
-          padding: 14px 32px;
-          background: #fff;
-          color: #0a0a0f;
-          border-radius: 999px;
-          font-family: 'Syne', sans-serif;
-          font-weight: 700;
-          font-size: 15px;
-          letter-spacing: 0.01em;
-          border: none;
-          text-decoration: none;
-          cursor: pointer;
-          transition: transform 0.15s ease, box-shadow 0.2s ease;
-          box-shadow: 0 0 0 0 rgba(255,255,255,0);
-        }
-
-        .cta-btn:hover {
-          box-shadow: 0 8px 40px rgba(255,255,255,0.15);
-        }
-
-        .icon-wrap {
-          width: 52px;
-          height: 52px;
-          border-radius: 12px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 26px;
-          background: rgba(255,255,255,0.06);
-          margin-bottom: 20px;
-          transition: transform 0.25s ease;
-        }
-
-        .service-card:hover .icon-wrap {
-          transform: scale(1.1);
-        }
-
-        .service-title {
-          font-family: 'Syne', sans-serif;
-          font-weight: 600;
-          font-size: 16px;
-          color: rgba(255,255,255,0.92);
-          margin-bottom: 8px;
-        }
-
-        .service-desc {
-          font-size: 14px;
-          color: rgba(255,255,255,0.45);
-          line-height: 1.6;
-        }
-
-        .divider-line {
-          width: 48px;
-          height: 2px;
-          background: linear-gradient(90deg, rgba(255,255,255,0.5), transparent);
-          margin: 0 auto 20px;
-        }
-
-        .section-label {
-          font-family: 'Syne', sans-serif;
-          font-size: 11px;
-          letter-spacing: 0.18em;
-          text-transform: uppercase;
-          color: rgba(255,255,255,0.3);
-          margin-bottom: 16px;
-        }
-
-        .section-anchor {
-          scroll-margin-top: 120px;
-        }
-
-        .about-panel,
-        .contact-card {
-          position: relative;
-          background: rgba(255,255,255,0.03);
-          border: 1px solid rgba(255,255,255,0.08);
-          border-radius: 28px;
-          padding: 32px;
-          overflow: hidden;
-        }
-
-        .about-panel::before,
-        .contact-card::before {
-          content: '';
-          position: absolute;
-          left: 24px;
-          right: 24px;
-          bottom: 0;
-          height: 1px;
-          background: linear-gradient(90deg, transparent, rgba(139,92,246,0.45), transparent);
-        }
-
-        .about-grid {
-          display: grid;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 16px;
-          margin-top: 32px;
-        }
-
-        .about-card {
-          background: rgba(255,255,255,0.02);
-          border: 1px solid rgba(255,255,255,0.06);
-          border-radius: 22px;
-          padding: 22px;
-        }
-
-        .about-card-title {
-          font-family: 'Syne', sans-serif;
-          font-size: 18px;
-          color: rgba(255,255,255,0.92);
-          margin-bottom: 10px;
-        }
-
-        .about-card-text {
-          font-size: 14px;
-          line-height: 1.7;
-          color: rgba(255,255,255,0.55);
-        }
-
-        .contact-grid {
-          display: grid;
-          grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-          gap: 18px;
-          max-width: 1040px;
-          margin: 0 auto;
-        }
-
-        .contact-list {
-          display: grid;
-          gap: 14px;
-          margin-top: 2px;
-        }
-
-        .contact-item {
-          padding: 16px 0 0;
-          border-top: 1px solid rgba(255,255,255,0.06);
-        }
-
-        .contact-item:first-child {
-          padding-top: 0;
-          border-top: none;
-        }
-
-        .contact-label {
-          display: block;
-          margin-bottom: 6px;
-          font-family: 'Syne', sans-serif;
-          font-size: 12px;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          color: rgba(255,255,255,0.34);
-        }
-
-        .contact-value,
-        .contact-value-link {
-          color: rgba(255,255,255,0.8);
-          font-size: 16px;
-          line-height: 1.7;
-        }
-
-        .contact-value-link {
-          text-decoration: none;
-        }
-
-        .contact-value-link:hover {
-          color: #fff;
-        }
-
-        @media (max-width: 900px) {
-          .about-grid,
-          .contact-grid {
-            grid-template-columns: 1fr;
-          }
-        }
-
-        @media (max-width: 640px) {
-          .about-panel,
-          .contact-card {
-            padding: 24px;
-          }
-        }
-      `}</style>
-
       <main
         className="page-root min-h-screen relative overflow-hidden"
-        style={{ background: '#08080f' }}
+        style={{ background: '#ffffff' }}
       >
         <NoiseTexture
           aria-hidden="true"
-          className="fixed inset-0 z-[1] opacity-[0.06]"
+          className="fixed inset-0 z-[1] opacity-[0.03]"
           frequency={0.85}
           octaves={4}
           slope={0.18}
@@ -364,7 +55,7 @@ export default function Home() {
             position: 'fixed',
             inset: 0,
             background:
-              'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(120,60,220,0.18) 0%, transparent 70%)',
+              'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(139,92,246,0.06) 0%, transparent 70%)',
             pointerEvents: 'none',
             zIndex: 0,
           }}
@@ -376,7 +67,7 @@ export default function Home() {
             width: '480px',
             height: '480px',
             borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(139,92,246,0.04) 0%, transparent 70%)',
             pointerEvents: 'none',
             zIndex: 0,
             transform: `translate(${mousePosition.x - 240}px, ${mousePosition.y - 240}px)`,
@@ -414,7 +105,7 @@ export default function Home() {
                       width: 6,
                       height: 6,
                       borderRadius: '50%',
-                      background: '#4ade80',
+                      background: '#10b981',
                       display: 'inline-block',
                     }}
                   />
@@ -429,7 +120,7 @@ export default function Home() {
                 className="brand-name mb-6"
                 style={{
                   fontSize: 'clamp(3rem, 10vw, 7rem)',
-                  color: '#fff',
+                  color: '#1a1a1a',
                   lineHeight: 1,
                 }}
               >
@@ -452,7 +143,7 @@ export default function Home() {
                 transition={{ delay: 0.5 }}
                 style={{
                   fontSize: '17px',
-                  color: 'rgba(255,255,255,0.5)',
+                  color: 'rgba(0,0,0,0.55)',
                   maxWidth: '560px',
                   margin: '0 auto 24px',
                   lineHeight: 1.7,
@@ -516,7 +207,7 @@ export default function Home() {
                       right: 0,
                       width: 80,
                       height: 80,
-                      background: `radial-gradient(circle at top right, ${service.accent}18, transparent 70%)`,
+                      background: `radial-gradient(circle at top right, ${service.accent}12, transparent 70%)`,
                       borderRadius: '0 16px 0 0',
                       pointerEvents: 'none',
                     }}
@@ -534,7 +225,7 @@ export default function Home() {
                       left: 24,
                       right: 24,
                       height: '1px',
-                      background: `linear-gradient(90deg, transparent, ${service.accent}50, transparent)`,
+                      background: `linear-gradient(90deg, transparent, ${service.accent}30, transparent)`,
                     }}
                   />
                 </motion.div>
@@ -561,6 +252,7 @@ export default function Home() {
                       fontSize: 'clamp(2rem, 4.5vw, 3.6rem)',
                       lineHeight: 1.05,
                       marginBottom: '18px',
+                      color: '#1a1a1a',
                     }}
                   >
                     Small team energy, senior-level execution.
@@ -570,7 +262,7 @@ export default function Home() {
                     style={{
                       fontSize: '16px',
                       lineHeight: 1.8,
-                      color: 'rgba(255,255,255,0.58)',
+                      color: 'rgba(0,0,0,0.55)',
                       maxWidth: '690px',
                     }}
                   >
@@ -617,6 +309,7 @@ export default function Home() {
                     fontSize: 'clamp(2rem, 4vw, 3.3rem)',
                     lineHeight: 1.05,
                     marginBottom: '18px',
+                    color: '#1a1a1a',
                   }}
                 >
                   Ready to plan your next build?
@@ -626,7 +319,7 @@ export default function Home() {
                   style={{
                     fontSize: '16px',
                     lineHeight: 1.8,
-                    color: 'rgba(255,255,255,0.58)',
+                    color: 'rgba(0,0,0,0.55)',
                     maxWidth: '560px',
                   }}
                 >
@@ -671,7 +364,7 @@ export default function Home() {
               transition={{ delay: 0.2 }}
               style={{
                 marginTop: '28px',
-                color: 'rgba(255,255,255,0.2)',
+                color: 'rgba(0,0,0,0.25)',
                 fontSize: '12px',
                 fontFamily: "'Syne', sans-serif",
                 letterSpacing: '0.1em',

@@ -6,11 +6,12 @@
 
 @layer base {
   body {
-    background-color: black;
-    @apply bg-background text-foreground;
+    background-color: rgb(254, 254, 254);
+
+    @apply text-gray-900;
   }
   * {
-    @apply border-border outline-ring/50;
+    @apply border-gray-200 outline-ring/50;
   }
   html {
     @apply font-sans;
@@ -23,7 +24,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a1a;
+  background: #f1f1f1;
 }
 
 ::-webkit-scrollbar-thumb {
