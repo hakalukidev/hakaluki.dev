@@ -293,9 +293,9 @@
 
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 18px;
-  max-width: 1120px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 
@@ -573,60 +573,39 @@
 }
 
 .home-menu-button,
-.theme-icon-button {
+.theme-icon-button,
+.theme-mini-button {
   border-color: var(--line-medium);
   background: var(--surface-muted);
   color: var(--text-body);
 }
 
 .home-menu-button:hover,
-.theme-icon-button:hover {
+.theme-icon-button:hover,
+.theme-mini-button:hover {
   background: var(--surface-hover);
   color: var(--text-strong);
 }
 
-.theme-icon-button {
+.theme-icon-button,
+.theme-mini-button {
   display: inline-flex;
-  width: 44px;
-  height: 44px;
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
   border-width: 1px;
-  border-radius: 8px;
+  border-radius: 7px;
   transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
-.theme-segment {
-  display: inline-flex;
-  flex-shrink: 0;
-  gap: 3px;
-  padding: 3px;
-  border: 1px solid var(--line-medium);
-  border-radius: 8px;
-  background: var(--surface-muted);
+.theme-icon-button {
+  width: 34px;
+  height: 34px;
 }
 
-.theme-segment-button {
-  display: inline-flex;
-  min-height: 34px;
-  align-items: center;
-  gap: 6px;
-  border: 0;
-  border-radius: 6px;
-  padding: 0 10px;
-  background: transparent;
-  color: var(--text-muted);
-  font-family: 'Syne', sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: color 0.2s ease, background 0.2s ease;
-}
-
-.theme-segment-button[aria-pressed='true'] {
-  background: var(--text-strong);
-  color: var(--page-bg);
+.theme-mini-button {
+  width: 30px;
+  height: 30px;
 }
 
 .home-mobile-nav {
@@ -662,7 +641,7 @@
   }
 
   .project-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .magic-project-card {
@@ -694,6 +673,10 @@
 
   .magic-project-media {
     height: 320px;
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
   }
 
   .magic-project-content {

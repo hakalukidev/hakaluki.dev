@@ -392,7 +392,7 @@ export default function Home() {
                 <motion.a
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
-                  href="mailto:hello@hakaluki.devs?subject=Schedule%20a%20Meeting"
+                  href="mailto:contact@hakaluki.dev?subject=Schedule%20a%20Meeting"
                   className="cta-btn mt-8"
                 >
                   Schedule a Meeting

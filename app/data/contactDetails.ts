@@ -1,8 +1,8 @@
 export const contactDetails = [
   {
     label: 'Email',
-    value: 'hello@hakaluki.devs',
-    href: 'mailto:hello@hakaluki.devs',
+    value: 'contact@hakaluki.dev',
+    href: 'mailto:contact@hakaluki.dev',
   },
   {
     label: 'Location',

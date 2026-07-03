@@ -25,7 +25,7 @@ const introEase = [0.16, 1, 0.3, 1] as const;
 const shellEase = [0.22, 1, 0.36, 1] as const;
 const scrolledBorderRadius = 12;
 const mobileBreakpoint = 720;
-const talkToTeamHref = 'mailto:hello@hakaluki.devs?subject=Talk%20to%20the%20Team';
+const talkToTeamHref = 'mailto:contact@hakaluki.dev?subject=Talk%20to%20the%20Team';
 
 function HomeNavbarComponent({ isScrolled, theme, onThemeChange }: HomeNavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -185,20 +185,14 @@ function HomeNavbarComponent({ isScrolled, theme, onThemeChange }: HomeNavbarPro
               ))}
             </nav>
 
-            <div className="theme-segment" role="group" aria-label="Theme mode">
-              {(['light', 'dark'] as const).map((mode) => (
-                <button
-                  key={mode}
-                  type="button"
-                  aria-pressed={theme === mode}
-                  onClick={() => onThemeChange(mode)}
-                  className="theme-segment-button"
-                >
-                  {mode === 'light' ? <Sun className="size-3.5" aria-hidden="true" /> : <Moon className="size-3.5" aria-hidden="true" />}
-                  <span>{mode === 'light' ? 'Light' : 'Dark'}</span>
-                </button>
-              ))}
-            </div>
+            <button
+              type="button"
+              aria-label={themeToggleLabel}
+              onClick={() => onThemeChange(nextTheme)}
+              className="theme-mini-button"
+            >
+              {theme === 'light' ? <Moon className="size-3.5" aria-hidden="true" /> : <Sun className="size-3.5" aria-hidden="true" />}
+            </button>
 
             <Button
               asChild

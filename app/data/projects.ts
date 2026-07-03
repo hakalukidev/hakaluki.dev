@@ -32,4 +32,15 @@ export const projects = [
     accent: '#17153d',
     stats: ['SaaS', 'Workflow', 'Product UI'],
   },
+  {
+    title: 'Muaz Technology',
+    category: 'Workshop Tools Store',
+    description:
+      'An industrial e-commerce interface for garage equipment and workshop tools with category browsing, hero carousel, and product search.',
+    image: '/projects/muaz-technology.png',
+    imageWidth: 1920,
+    imageHeight: 1080,
+    accent: '#2563eb',
+    stats: ['E-commerce', 'Catalog', 'Tools'],
+  },
 ]
