@@ -2,7 +2,7 @@
 
 import { memo, useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { ArrowUpRight, Menu, Moon, Sun, X } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -10,12 +10,15 @@ import { Button } from '@/components/ui/button';
 const navItems = [
   { label: 'Home', href: '#home' },
   { label: 'Services', href: '#services' },
+  { label: 'Projects', href: '#projects' },
   { label: 'About', href: '#about' },
   { label: 'Contact', href: '#contact' },
 ];
 
 type HomeNavbarProps = {
   isScrolled: boolean;
+  theme: 'light' | 'dark';
+  onThemeChange: (theme: 'light' | 'dark') => void;
 };
 
 const introEase = [0.16, 1, 0.3, 1] as const;
@@ -24,7 +27,7 @@ const scrolledBorderRadius = 12;
 const mobileBreakpoint = 720;
 const talkToTeamHref = 'mailto:hello@hakaluki.devs?subject=Talk%20to%20the%20Team';
 
-function HomeNavbarComponent({ isScrolled }: HomeNavbarProps) {
+function HomeNavbarComponent({ isScrolled, theme, onThemeChange }: HomeNavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobileViewport, setIsMobileViewport] = useState(false);
 
@@ -55,6 +58,8 @@ function HomeNavbarComponent({ isScrolled }: HomeNavbarProps) {
   }, []);
 
   const shouldApplyScrollEffect = isScrolled && !isMobileViewport;
+  const nextTheme = theme === 'light' ? 'dark' : 'light';
+  const themeToggleLabel = `Switch to ${nextTheme} mode`;
   const talkToTeamLabel = (
     <>
       <span className="absolute inset-0 bg-linear-to-r from-purple-600/0 via-purple-600/15 to-purple-600/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -82,8 +87,8 @@ function HomeNavbarComponent({ isScrolled }: HomeNavbarProps) {
           paddingBottom: shouldApplyScrollEffect ? 12 : 16,
           paddingLeft: shouldApplyScrollEffect ? 16 : 24,
           borderRadius: shouldApplyScrollEffect ? scrolledBorderRadius : 0,
-          borderColor: shouldApplyScrollEffect ? 'rgba(0,0,0,0.1)' : 'rgba(0,0,0,0)',
-          boxShadow: shouldApplyScrollEffect ? '0 18px 60px rgba(0,0,0,0.08)' : '0 0 0 rgba(0,0,0,0)',
+          borderColor: shouldApplyScrollEffect ? 'var(--nav-border)' : 'rgba(0,0,0,0)',
+          boxShadow: shouldApplyScrollEffect ? 'var(--nav-shadow)' : '0 0 0 rgba(0,0,0,0)',
         }}
         transition={{
           default: { duration: 0.5, ease: shellEase },
@@ -98,13 +103,13 @@ function HomeNavbarComponent({ isScrolled }: HomeNavbarProps) {
       >
         <motion.span
           aria-hidden="true"
-          className="absolute inset-0 bg-linear-to-b from-white to-gray-50"
+          className="home-nav-bg home-nav-bg-base absolute inset-0"
           animate={{ opacity: shouldApplyScrollEffect ? 0.95 : 1 }}
           transition={{ duration: 0.45, ease: shellEase }}
         />
         <motion.span
           aria-hidden="true"
-          className="absolute inset-0 bg-white/80"
+          className="home-nav-bg home-nav-bg-float absolute inset-0"
           animate={{ opacity: shouldApplyScrollEffect ? 1 : 0 }}
           transition={{ duration: 0.45, ease: shellEase }}
         />
@@ -112,7 +117,7 @@ function HomeNavbarComponent({ isScrolled }: HomeNavbarProps) {
         <div className="relative z-10 flex w-full min-w-0 items-center gap-4 max-[720px]:gap-2">
           <a
             href="#home"
-            className="inline-flex min-w-0 shrink-0 items-center gap-3 text-gray-900 no-underline max-[720px]:flex-1 max-[720px]:shrink max-[720px]:gap-2"
+            className="home-nav-brand inline-flex min-w-0 shrink-0 items-center gap-3 no-underline max-[720px]:flex-1 max-[720px]:shrink max-[720px]:gap-2"
             aria-label="Go to home section"
           >
             <span
@@ -130,6 +135,15 @@ function HomeNavbarComponent({ isScrolled }: HomeNavbarProps) {
           </a>
 
           <div className="ml-auto hidden min-w-0 shrink-0 items-center gap-2 max-[720px]:flex">
+            <button
+              type="button"
+              aria-label={themeToggleLabel}
+              onClick={() => onThemeChange(nextTheme)}
+              className="theme-icon-button"
+            >
+              {theme === 'light' ? <Moon className="h-[18px] w-[18px]" aria-hidden="true" /> : <Sun className="h-[18px] w-[18px]" aria-hidden="true" />}
+            </button>
+
             <Button
               asChild
               variant="default"
@@ -146,7 +160,7 @@ function HomeNavbarComponent({ isScrolled }: HomeNavbarProps) {
               aria-expanded={isMobileMenuOpen}
               aria-controls="home-mobile-navigation"
               onClick={() => setIsMobileMenuOpen((currentValue) => !currentValue)}
-              className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-gray-200 bg-gray-50 text-gray-700 transition-colors hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-300"
+              className="home-menu-button inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md border transition-colors focus-visible:outline-none focus-visible:ring-2"
             >
               {isMobileMenuOpen ? <X className="size-5" aria-hidden="true" /> : <Menu className="size-5" aria-hidden="true" />}
             </button>
@@ -164,12 +178,27 @@ function HomeNavbarComponent({ isScrolled }: HomeNavbarProps) {
                 <a
                   key={item.href}
                   href={item.href}
-                  className="rounded-sm px-3.5 py-2.5 text-sm text-gray-600 no-underline transition-colors hover:bg-gray-100 hover:text-gray-900 max-[840px]:px-2.5 max-[840px]:py-2 max-[840px]:text-[13px]"
+                  className="home-nav-link rounded-sm px-3.5 py-2.5 text-sm no-underline transition-colors max-[840px]:px-2.5 max-[840px]:py-2 max-[840px]:text-[13px]"
                 >
                   {item.label}
                 </a>
               ))}
             </nav>
+
+            <div className="theme-segment" role="group" aria-label="Theme mode">
+              {(['light', 'dark'] as const).map((mode) => (
+                <button
+                  key={mode}
+                  type="button"
+                  aria-pressed={theme === mode}
+                  onClick={() => onThemeChange(mode)}
+                  className="theme-segment-button"
+                >
+                  {mode === 'light' ? <Sun className="size-3.5" aria-hidden="true" /> : <Moon className="size-3.5" aria-hidden="true" />}
+                  <span>{mode === 'light' ? 'Light' : 'Dark'}</span>
+                </button>
+              ))}
+            </div>
 
             <Button
               asChild
@@ -200,7 +229,7 @@ function HomeNavbarComponent({ isScrolled }: HomeNavbarProps) {
                 exit={{ scaleX: 0, opacity: 0 }}
                 transition={{ duration: 0.3, ease: shellEase }}
                 style={{ transformOrigin: 'left center' }}
-                className="flex w-full origin-left flex-col gap-2 rounded-2xl border border-gray-200 bg-white p-3 shadow-lg"
+                className="home-mobile-nav flex w-full origin-left flex-col gap-2 rounded-2xl border p-3 shadow-lg"
                 aria-label="Mobile navigation"
               >
                 {navItems.map((item) => (
@@ -208,7 +237,7 @@ function HomeNavbarComponent({ isScrolled }: HomeNavbarProps) {
                     key={item.href}
                     href={item.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="rounded-xl px-4 py-3 text-sm text-gray-700 no-underline transition-colors hover:bg-gray-100 hover:text-gray-900"
+                    className="home-mobile-nav-link rounded-xl px-4 py-3 text-sm no-underline transition-colors"
                   >
                     {item.label}
                   </a>
