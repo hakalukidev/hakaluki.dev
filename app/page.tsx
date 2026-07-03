@@ -1,18 +1,23 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import type { CSSProperties } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import './styles/home.css';
 
 import { HomeNavbar } from '@/components/home/navbar';
+import { DotBrandText } from '@/components/ui/dot-brand-text';
 import { NoiseTexture } from '@/components/ui/noise-texture';
 import { services } from './data/services';
+import { projects } from './data/projects';
 import { aboutPillars } from './data/aboutPillars';
 import { contactDetails } from './data/contactDetails';
 
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isScrolled, setIsScrolled] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
@@ -35,11 +40,31 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const storedTheme = window.localStorage.getItem('hakaluki-theme');
+    const nextTheme =
+      storedTheme === 'light' || storedTheme === 'dark'
+        ? storedTheme
+        : window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'light';
+
+    const frameId = window.requestAnimationFrame(() => {
+      setTheme(nextTheme);
+    });
+
+    return () => window.cancelAnimationFrame(frameId);
+  }, []);
+
+  const handleThemeChange = (nextTheme: 'light' | 'dark') => {
+    setTheme(nextTheme);
+    window.localStorage.setItem('hakaluki-theme', nextTheme);
+  };
+
   return (
     <>
       <main
-        className="page-root min-h-screen relative overflow-hidden"
-        style={{ background: '#ffffff' }}
+        className={`page-root theme-${theme} min-h-screen relative overflow-hidden`}
       >
         <NoiseTexture
           aria-hidden="true"
@@ -50,32 +75,20 @@ export default function Home() {
           noiseOpacity={0.22}
         />
 
-        <div
-          style={{
-            position: 'fixed',
-            inset: 0,
-            background:
-              'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(139,92,246,0.06) 0%, transparent 70%)',
-            pointerEvents: 'none',
-            zIndex: 0,
-          }}
-        />
+        <div className="ambient-field" aria-hidden="true" />
 
         <div
+          className="cursor-glow"
           style={{
-            position: 'fixed',
-            width: '480px',
-            height: '480px',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(139,92,246,0.04) 0%, transparent 70%)',
-            pointerEvents: 'none',
-            zIndex: 0,
             transform: `translate(${mousePosition.x - 240}px, ${mousePosition.y - 240}px)`,
-            transition: 'transform 0.12s ease-out',
           }}
         />
 
-        <HomeNavbar isScrolled={isScrolled} />
+        <HomeNavbar
+          isScrolled={isScrolled}
+          theme={theme}
+          onThemeChange={handleThemeChange}
+        />
 
         {[0, 25, 50, 75, 100].map((position) => (
           <div
@@ -117,17 +130,9 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="brand-name mb-6"
-                style={{
-                  fontSize: 'clamp(3rem, 10vw, 7rem)',
-                  color: '#1a1a1a',
-                  lineHeight: 1,
-                }}
+                className="mb-7 flex justify-center"
               >
-                Hakaluki
-                <span style={{ color: 'rgba(139,92,246,0.9)' }}>.</span>
-                <br />
-                Devs
+                <DotBrandText />
               </motion.h1>
 
               <motion.div
@@ -141,13 +146,7 @@ export default function Home() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
-                style={{
-                  fontSize: '17px',
-                  color: 'rgba(0,0,0,0.55)',
-                  maxWidth: '560px',
-                  margin: '0 auto 24px',
-                  lineHeight: 1.7,
-                }}
+                className="hero-copy"
               >
                 A focused digital studio building websites, apps, and AI-powered experiences
                 with thoughtful execution and a calm visual edge.
@@ -234,6 +233,68 @@ export default function Home() {
           </section>
 
           <motion.section
+            id="projects"
+            className="section-anchor mt-28"
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="mx-auto mb-10 max-w-3xl text-center">
+              <p className="section-label">Projects</p>
+              <h2 className="brand-name project-heading">
+                Recent builds with production-ready polish.
+              </h2>
+            </div>
+
+            <div className="project-grid">
+              {projects.map((project, index) => (
+                <motion.article
+                  key={project.title}
+                  className="magic-project-card"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.25 }}
+                  transition={{
+                    delay: index * 0.08,
+                    duration: 0.65,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  whileHover={{
+                    y: -8,
+                    transition: { type: 'spring', stiffness: 360, damping: 24 },
+                  }}
+                  style={{ '--project-accent': project.accent } as CSSProperties}
+                >
+                  <div className="magic-project-glow" aria-hidden="true" />
+                  <div className="magic-project-media">
+                    <Image
+                      src={project.image}
+                      width={project.imageWidth}
+                      height={project.imageHeight}
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      alt={`${project.title} project screenshot`}
+                      className="project-image"
+                    />
+                  </div>
+
+                  <div className="magic-project-content">
+                    <span className="project-category">{project.category}</span>
+                    <h3 className="project-title">{project.title}</h3>
+                    <p className="project-desc">{project.description}</p>
+
+                    <div className="project-tags">
+                      {project.stats.map((stat) => (
+                        <span key={stat}>{stat}</span>
+                      ))}
+                    </div>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+          </motion.section>
+
+          <motion.section
             id="about"
             className="section-anchor mt-28 max-w-5xl mx-auto"
             initial={{ opacity: 0, y: 28 }}
@@ -252,7 +313,7 @@ export default function Home() {
                       fontSize: 'clamp(2rem, 4.5vw, 3.6rem)',
                       lineHeight: 1.05,
                       marginBottom: '18px',
-                      color: '#1a1a1a',
+                      color: 'var(--text-strong)',
                     }}
                   >
                     Small team energy, senior-level execution.
@@ -262,7 +323,7 @@ export default function Home() {
                     style={{
                       fontSize: '16px',
                       lineHeight: 1.8,
-                      color: 'rgba(0,0,0,0.55)',
+                      color: 'var(--text-muted)',
                       maxWidth: '690px',
                     }}
                   >
@@ -309,7 +370,7 @@ export default function Home() {
                     fontSize: 'clamp(2rem, 4vw, 3.3rem)',
                     lineHeight: 1.05,
                     marginBottom: '18px',
-                    color: '#1a1a1a',
+                    color: 'var(--text-strong)',
                   }}
                 >
                   Ready to plan your next build?
@@ -319,7 +380,7 @@ export default function Home() {
                   style={{
                     fontSize: '16px',
                     lineHeight: 1.8,
-                    color: 'rgba(0,0,0,0.55)',
+                    color: 'var(--text-muted)',
                     maxWidth: '560px',
                   }}
                 >
@@ -364,7 +425,7 @@ export default function Home() {
               transition={{ delay: 0.2 }}
               style={{
                 marginTop: '28px',
-                color: 'rgba(0,0,0,0.25)',
+                color: 'var(--text-faint)',
                 fontSize: '12px',
                 fontFamily: "'Syne', sans-serif",
                 letterSpacing: '0.1em',
