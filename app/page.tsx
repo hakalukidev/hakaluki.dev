@@ -247,50 +247,53 @@ export default function Home() {
               </h2>
             </div>
 
-            <div className="project-grid">
-              {projects.map((project, index) => (
-                <motion.article
-                  key={project.title}
-                  className="magic-project-card"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.25 }}
-                  transition={{
-                    delay: index * 0.08,
-                    duration: 0.65,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  whileHover={{
-                    y: -8,
-                    transition: { type: 'spring', stiffness: 360, damping: 24 },
-                  }}
-                  style={{ '--project-accent': project.accent } as CSSProperties}
-                >
-                  <div className="magic-project-glow" aria-hidden="true" />
-                  <div className="magic-project-media">
-                    <Image
-                      src={project.image}
-                      width={project.imageWidth}
-                      height={project.imageHeight}
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      alt={`${project.title} project screenshot`}
-                      className="project-image"
-                    />
-                  </div>
-
-                  <div className="magic-project-content">
-                    <span className="project-category">{project.category}</span>
-                    <h3 className="project-title">{project.title}</h3>
-                    <p className="project-desc">{project.description}</p>
-
-                    <div className="project-tags">
-                      {project.stats.map((stat) => (
-                        <span key={stat}>{stat}</span>
-                      ))}
+            <div className="project-slider-shell">
+              <div className="project-slider-track">
+                {[...projects, ...projects].map((project, index) => (
+                  <motion.article
+                    key={`${project.title}-${index}`}
+                    className="magic-project-card"
+                    aria-hidden={index >= projects.length}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.25 }}
+                    transition={{
+                      delay: index * 0.08,
+                      duration: 0.65,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                    whileHover={{
+                      y: -8,
+                      transition: { type: 'spring', stiffness: 360, damping: 24 },
+                    }}
+                    style={{ '--project-accent': project.accent } as CSSProperties}
+                  >
+                    <div className="magic-project-glow" aria-hidden="true" />
+                    <div className="magic-project-media">
+                      <Image
+                        src={project.image}
+                        width={project.imageWidth}
+                        height={project.imageHeight}
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        alt={`${project.title} project screenshot`}
+                        className="project-image"
+                      />
                     </div>
-                  </div>
-                </motion.article>
-              ))}
+
+                    <div className="magic-project-content">
+                      <span className="project-category">{project.category}</span>
+                      <h3 className="project-title">{project.title}</h3>
+                      <p className="project-desc">{project.description}</p>
+
+                      <div className="project-tags">
+                        {project.stats.map((stat) => (
+                          <span key={stat}>{stat}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.article>
+                ))}
+              </div>
             </div>
           </motion.section>
 

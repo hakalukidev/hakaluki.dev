@@ -130,7 +130,7 @@ function HomeNavbarComponent({ isScrolled, theme, onThemeChange }: HomeNavbarPro
             </span>
 
             <span className="truncate font-syne text-[1.6rem] font-bold leading-none tracking-[-0.04em] max-[840px]:text-[1.35rem] max-[520px]:text-[1.18rem] max-[380px]:text-[1.02rem]">
-              Hakaluki<span className="text-purple-600">.Devs</span>
+              hakaluki<span className="text-purple-600">.dev</span>
             </span>
           </a>
 
