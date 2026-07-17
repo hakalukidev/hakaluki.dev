@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="19" viewBox="12 3 42 50" fill="none">
+  <defs>
+    <linearGradient id="cursor-gradient" x1="25" y1="5" x2="25" y2="46" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FF3D77" />
+      <stop offset="100%" stop-color="#FFA987" />
+    </linearGradient>
+  </defs>
+  <g transform="rotate(-25 25 25)">
+    <path
+      d="M42.6817 41.1495L27.5103 6.79925C26.7269 5.02557 24.2082 5.02558 23.3927 6.79925L7.59814 41.1495C6.75833 42.9759 8.52712 44.8902 10.4125 44.1954L24.3757 39.0496C24.8829 38.8627 25.4385 38.8627 25.9422 39.0496L39.8121 44.1954C41.6849 44.8902 43.4884 42.9759 42.6817 41.1495Z"
+      fill="url(#cursor-gradient)"
+    />
+  </g>
+</svg>

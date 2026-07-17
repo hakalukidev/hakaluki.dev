@@ -7,6 +7,7 @@
 @layer base {
   body {
     background-color: #F4F2EF;
+    overflow-x: hidden;
 
     @apply text-gray-900;
   }
@@ -21,6 +22,14 @@
 html {
   scrollbar-width: none;
   -ms-overflow-style: none;
+  overflow-x: hidden;
+  cursor: url("/cursor/cursor.svg") 2 2, auto;
+}
+
+*,
+*::before,
+*::after {
+  cursor: inherit;
 }
 
 ::-webkit-scrollbar {

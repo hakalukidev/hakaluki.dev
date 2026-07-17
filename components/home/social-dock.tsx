@@ -4,6 +4,7 @@ import React from 'react';
 
 import { Dock, DockIcon } from '@/components/ui/dock';
 import { ShineBorder } from '@/components/ui/shine-border';
+import { useSound } from '@/lib/sound-context';
 
 export type IconProps = React.HTMLAttributes<SVGElement>;
 
@@ -56,8 +57,10 @@ const socialLinks = [
 ];
 
 export function SocialDock() {
+  const { play } = useSound();
+
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed inset-x-0 bottom-4 z-50 mx-auto w-max sm:inset-x-auto sm:right-6 sm:bottom-6 sm:mx-0">
       <div className="relative rounded-2xl">
         <ShineBorder shineColor={['#a855f7', '#3b82f6', '#22d3ee']} duration={8} />
         <Dock
@@ -74,6 +77,8 @@ export function SocialDock() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
+                onMouseEnter={() => play('hover')}
+                onClick={() => play('click')}
                 className="flex h-full w-full items-center justify-center text-black"
               >
                 <Icon className="size-full" />

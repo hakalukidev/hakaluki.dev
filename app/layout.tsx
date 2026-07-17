@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Doto, Baloo_2, Anton, Silkscreen } from "next/font/google";
 import "./globals.css";
 
@@ -28,7 +29,7 @@ const silkscreen = Silkscreen({
 
 const siteUrl = "https://hakaluki.dev";
 const siteName = "hakaluki.dev";
-const siteTitle = "hakaluki.dev — Web, App & AI Solutions";
+const siteTitle = "hakaluki.dev | Web, App & AI Solutions";
 const siteDescription =
   "hakaluki.dev is a creative studio building fast websites, mobile apps, AI automation, and machine learning solutions for founders and teams.";
 const ogImage = {
@@ -89,24 +90,63 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  icons: {
-    icon: "/favicon.ico",
-  },
 };
 
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": `${siteUrl}/#organization`,
   name: siteName,
+  legalName: "hakaluki.dev",
   url: siteUrl,
   logo: `${siteUrl}${ogImage.url}`,
+  image: `${siteUrl}${ogImage.url}`,
   description: siteDescription,
   email: "contact@hakaluki.dev",
+  telephone: "+8801844902338",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Sylhet",
     addressCountry: "BD",
   },
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      contactType: "sales",
+      email: "contact@hakaluki.dev",
+      telephone: "+8801844902338",
+      areaServed: "Worldwide",
+      availableLanguage: ["English", "Bengali"],
+    },
+  ],
+  sameAs: [
+    "https://www.facebook.com/hakaluki.dev",
+    "https://www.instagram.com/hakaluki.dev/",
+    "https://www.linkedin.com/company/131984355",
+    "https://x.com/hakaluki_dev",
+    "https://github.com/hakalukidev",
+  ],
+  areaServed: "Worldwide",
+  knowsAbout: [
+    "Web Development",
+    "App Development",
+    "Machine Learning",
+    "AI Automation",
+    "UI/UX Design",
+    "Chatbot Development",
+    "Custom Software",
+    "Ecommerce Solutions",
+  ],
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteUrl}/#website`,
+  name: siteName,
+  url: siteUrl,
+  publisher: { "@id": `${siteUrl}/#organization` },
+  inLanguage: "en-US",
 };
 
 export default function RootLayout({
@@ -125,6 +165,20 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-BS51WL3X32"
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-BS51WL3X32');`}
+        </Script>
         {children}
       </body>
     </html>

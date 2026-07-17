@@ -9,6 +9,19 @@ export const projects = [
     imageHeight: 1600,
     accent: '#ef233c',
     stats: ['News UI', 'Responsive', 'Editorial'],
+    link: 'https://auto-pulse-india.vercel.app/',
+  },
+  {
+    title: 'Power International BD',
+    category: 'Battery Manufacturing',
+    description:
+      'A product-focused landing page for a battery manufacturer, highlighting deep-cycle and easy-bike batteries with clear calls to action.',
+    image: '/projects/PowerIntBDLanding.png',
+    imageWidth: 1343,
+    imageHeight: 872,
+    accent: '#f97316',
+    stats: ['Landing Page', 'Batteries', 'Industrial'],
+    link: 'https://power-int.vercel.app/',
   },
   {
     title: 'ICPS 2026',
@@ -20,6 +33,7 @@ export const projects = [
     imageHeight: 1751,
     accent: '#12b7e8',
     stats: ['Event', 'Research', 'CMS Ready'],
+    link: 'https://icps2026.sust.edu',
   },
   {
     title: 'ICAP 2025',
@@ -31,6 +45,7 @@ export const projects = [
     imageHeight: 2111,
     accent: '#7c3aed',
     stats: ['Event', 'Physics', 'SUST'],
+    link: 'https://icap2025.sust.edu',
   },
   {
     title: 'MeetSeek',
@@ -42,6 +57,7 @@ export const projects = [
     imageHeight: 505,
     accent: '#17153d',
     stats: ['SaaS', 'Workflow', 'Product UI'],
+    link: 'https://meetseek.innovatorslab.net/',
   },
   {
     title: 'Muaz Technology',
@@ -53,6 +69,7 @@ export const projects = [
     imageHeight: 2020,
     accent: '#2563eb',
     stats: ['E-commerce', 'Catalog', 'Tools'],
+    link: 'https://muazbd.com',
   },
   {
     title: 'Muaz ERP',
@@ -64,6 +81,7 @@ export const projects = [
     imageHeight: 595,
     accent: '#059669',
     stats: ['ERP', 'Dashboard', 'Reporting'],
+    link: 'https://erp.muazbd.com/admin/dashboard',
   },
   {
     title: 'Tech Academy',
@@ -75,5 +93,6 @@ export const projects = [
     imageHeight: 1524,
     accent: '#f59e0b',
     stats: ['EdTech', 'Courses', 'Responsive'],
+    link: 'https://www.techacademy-bd.com/',
   },
 ]

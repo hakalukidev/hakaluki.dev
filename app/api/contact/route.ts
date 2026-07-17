@@ -1,4 +1,7 @@
 import nodemailer from 'nodemailer';
+import { push, ref, serverTimestamp } from 'firebase/database';
+
+import { realtimeDb } from '@/lib/firebase';
 
 const CONTACT_TO = process.env.CONTACT_TO_EMAIL ?? 'contact@hakaluki.dev';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -50,6 +53,20 @@ export async function POST(request: Request) {
 
   if (!EMAIL_RE.test(email)) {
     return Response.json({ error: 'Please provide a valid email address.' }, { status: 400 });
+  }
+
+  try {
+    await push(ref(realtimeDb, 'messages'), {
+      name,
+      email,
+      phone: phone || null,
+      projectType: projectType || null,
+      services,
+      message,
+      createdAt: serverTimestamp(),
+    });
+  } catch (error) {
+    console.error('Contact form: failed to save message to Firebase:', error);
   }
 
   const smtpHost = process.env.SMTP_HOST;

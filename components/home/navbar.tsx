@@ -6,6 +6,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
 import { AnimatedThemeToggler } from '@/components/magicui/animated-theme-toggler';
+import { SoundToggle } from '@/components/ui/sound-toggle';
+import { useSound } from '@/lib/sound-context';
 
 const navItems = [
   { label: 'Home', href: '#home' },
@@ -25,6 +27,7 @@ const shellEase = [0.22, 1, 0.36, 1] as const;
 
 function HomeNavbarComponent({ theme, onThemeChange }: HomeNavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { play } = useSound();
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -78,6 +81,8 @@ function HomeNavbarComponent({ theme, onThemeChange }: HomeNavbarProps) {
           </a>
 
           <div className="ml-auto hidden min-w-0 shrink-0 items-center gap-2 max-[720px]:flex">
+            <SoundToggle className="theme-icon-button [&_svg]:size-4.5" />
+
             <AnimatedThemeToggler
               theme={theme}
               onThemeChange={onThemeChange}
@@ -90,7 +95,12 @@ function HomeNavbarComponent({ theme, onThemeChange }: HomeNavbarProps) {
               aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={isMobileMenuOpen}
               aria-controls="home-mobile-navigation"
-              onClick={() => setIsMobileMenuOpen((currentValue) => !currentValue)}
+              onClick={() =>
+                setIsMobileMenuOpen((currentValue) => {
+                  play(currentValue ? 'close' : 'open');
+                  return !currentValue;
+                })
+              }
               className="home-menu-button inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md border transition-colors focus-visible:outline-none focus-visible:ring-2"
             >
               {isMobileMenuOpen ? <X className="size-5" aria-hidden="true" /> : <Menu className="size-5" aria-hidden="true" />}
@@ -109,12 +119,16 @@ function HomeNavbarComponent({ theme, onThemeChange }: HomeNavbarProps) {
                 <a
                   key={item.href}
                   href={item.href}
+                  onMouseEnter={() => play('hover')}
+                  onClick={() => play('click')}
                   className="home-nav-link rounded-sm px-3.5 py-2.5 text-sm no-underline transition-colors max-[840px]:px-2.5 max-[840px]:py-2 max-[840px]:text-[13px]"
                 >
                   {item.label}
                 </a>
               ))}
             </nav>
+
+            <SoundToggle className="theme-mini-button [&_svg]:size-3.5" />
 
             <AnimatedThemeToggler
               theme={theme}
@@ -149,7 +163,11 @@ function HomeNavbarComponent({ theme, onThemeChange }: HomeNavbarProps) {
                   <a
                     key={item.href}
                     href={item.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onMouseEnter={() => play('hover')}
+                    onClick={() => {
+                      play('click');
+                      setIsMobileMenuOpen(false);
+                    }}
                     className="home-mobile-nav-link rounded-xl px-4 py-3 text-sm no-underline transition-colors"
                   >
                     {item.label}

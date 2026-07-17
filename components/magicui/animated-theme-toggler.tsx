@@ -5,6 +5,7 @@ import { Moon, Sun } from "lucide-react"
 import { flushSync } from "react-dom"
 
 import { cn } from "@/lib/utils"
+import { useSound } from "@/lib/sound-context"
 
 export type TransitionVariant =
   | "circle"
@@ -147,6 +148,7 @@ export const AnimatedThemeToggler = ({
   const [internalIsDark, setInternalIsDark] = useState(false)
   const isDark = isControlled ? theme === "dark" : internalIsDark
   const buttonRef = useRef<HTMLButtonElement>(null)
+  const { play } = useSound()
 
   useEffect(() => {
     if (isControlled) return
@@ -200,6 +202,7 @@ export const AnimatedThemeToggler = ({
         setInternalIsDark(newTheme)
         localStorage.setItem("theme", newTheme ? "dark" : "light")
       }
+      play(newTheme ? "toggleOn" : "toggleOff")
     }
 
     if (typeof document.startViewTransition !== "function") {
@@ -257,7 +260,7 @@ export const AnimatedThemeToggler = ({
         )
       })
     }
-  }, [shape, fromCenter, duration, isDark, isControlled, onThemeChange])
+  }, [shape, fromCenter, duration, isDark, isControlled, onThemeChange, play])
 
   return (
     <button

@@ -6,16 +6,12 @@ import { AnimatePresence, motion, useInView } from 'framer-motion';
 import Image from 'next/image';
 import {
   ArrowUpRight,
-  CalendarClock,
-  CalendarDays,
   ChevronDown,
   Clock,
   Headset,
   Mail,
   MapPin,
-  Newspaper,
   RotateCcw,
-  ShoppingBag,
   X,
   Zap,
 } from 'lucide-react';
@@ -26,11 +22,14 @@ import { ServiceMark } from '@/components/home/service-mark';
 import { HeroTerminal } from '@/components/home/hero-terminal';
 import { SocialDock } from '@/components/home/social-dock';
 import { ContactForm } from '@/components/home/contact-form';
+import { LiveStats } from '@/components/home/live-stats';
 import { NoiseTexture } from '@/components/ui/noise-texture';
 import { OrbitingCircles } from '@/components/ui/orbiting-circles';
+import { OrbitIcon } from '@/components/ui/orbit-icon';
 import { AvatarCircles } from '@/components/ui/avatar-circles';
 import { BentoCard, BentoGrid } from '@/components/ui/bento-grid';
 import { RippleButton } from '@/components/ui/ripple-button';
+import { SoundProvider, useSound } from '@/lib/sound-context';
 import { cn } from '@/lib/utils';
 import { TextReveal } from '@/components/magicui/text-reveal';
 import { DiaTextReveal } from '@/components/magicui/dia-text-reveal';
@@ -61,10 +60,10 @@ const contactIcons: Record<string, typeof Mail> = {
 };
 
 const projectBentoMeta = [
-  { icon: Newspaper, className: 'lg:col-span-1 lg:row-span-2' },
-  { icon: CalendarDays, className: 'lg:col-span-2 lg:row-span-1' },
-  { icon: CalendarClock, className: 'lg:col-span-1 lg:row-span-1' },
-  { icon: ShoppingBag, className: 'lg:col-span-1 lg:row-span-1' },
+  { className: 'lg:col-span-1 lg:row-span-2' },
+  { className: 'lg:col-span-2 lg:row-span-1' },
+  { className: 'lg:col-span-1 lg:row-span-1' },
+  { className: 'lg:col-span-1 lg:row-span-1' },
 ];
 
 const slugify = (title: string) => title.toLowerCase().replace(/[^a-z0-9]+/g, '');
@@ -98,7 +97,7 @@ const founderHighlightColors = [
   'rgba(251, 146, 60, 0.35)', // orange
 ];
 
-export default function Home() {
+function HomeContent() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const foundersRef = useRef<HTMLDivElement | null>(null);
@@ -106,6 +105,7 @@ export default function Home() {
   const [isTeamCtaStuck, setIsTeamCtaStuck] = useState(false);
   const [previewIndex, setPreviewIndex] = useState<number | null>(null);
   const [projectsExpanded, setProjectsExpanded] = useState(false);
+  const { play } = useSound();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -148,7 +148,10 @@ export default function Home() {
     if (previewIndex === null) return;
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setPreviewIndex(null);
+      if (event.key === 'Escape') {
+        play('close');
+        setPreviewIndex(null);
+      }
     };
 
     document.body.style.overflow = 'hidden';
@@ -158,7 +161,7 @@ export default function Home() {
       document.body.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [previewIndex]);
+  }, [previewIndex, play]);
 
   return (
     <>
@@ -284,7 +287,12 @@ export default function Home() {
                         profileUrl: '#about',
                       }))}
                     />
-                    <a href="#contact" className="cta-btn-team-text flex justify-between items-center gap-2">
+                    <a
+                      href="#contact"
+                      onMouseEnter={() => play('hover')}
+                      onClick={() => play('click')}
+                      className="cta-btn-team-text flex justify-between items-center gap-2"
+                    >
                       Talk to the Team
                       <span className="inline-flex size-4.5 items-center justify-center rounded-full bg-white/20 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
         <ArrowUpRight className="size-4.5" aria-hidden="true" />
@@ -332,13 +340,13 @@ export default function Home() {
               transition={{ delay: 0.75 }}
               className="mx-auto mb-10 max-w-3xl"
             >
-              <p className="section-label">
+              <h2 className="section-label">
                 <DiaTextReveal
                   text="Our Services"
                   textColor="var(--text-strong)"
                   className="text-5xl font-extrabold md:text-6xl lg:text-7xl"
                 />
-              </p>
+              </h2>
               <TextReveal>
                 Design, engineering, and AI systems built to launch fast and stay calm under scale.
               </TextReveal>
@@ -357,25 +365,25 @@ export default function Home() {
                 <div className="orbit-stage">
                   <OrbitingCircles radius={64} duration={16} iconSize={34}>
                     {innerTechnologies.map(({ name, icon: Icon, color }) => (
-                      <div key={name} className="orbit-icon" title={name}>
+                      <OrbitIcon key={name} className="orbit-icon" title={name}>
                         <Icon size={18} style={{ color }} />
-                      </div>
+                      </OrbitIcon>
                     ))}
                   </OrbitingCircles>
 
                   <OrbitingCircles radius={116} duration={26} iconSize={40} reverse>
                     {middleTechnologies.map(({ name, icon: Icon, color }) => (
-                      <div key={name} className="orbit-icon" title={name}>
+                      <OrbitIcon key={name} className="orbit-icon" title={name}>
                         <Icon size={20} style={{ color }} />
-                      </div>
+                      </OrbitIcon>
                     ))}
                   </OrbitingCircles>
 
                   <OrbitingCircles radius={172} duration={38} iconSize={46}>
                     {outerTechnologies.map(({ name, icon: Icon, color }) => (
-                      <div key={name} className="orbit-icon" title={name}>
+                      <OrbitIcon key={name} className="orbit-icon" title={name}>
                         <Icon size={22} style={{ color }} />
-                      </div>
+                      </OrbitIcon>
                     ))}
                   </OrbitingCircles>
                 </div>
@@ -424,13 +432,13 @@ export default function Home() {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="mx-auto mb-10 max-w-3xl">
-              <p className="section-label">
+              <h2 className="section-label">
                 <DiaTextReveal
                   text="Projects"
                   textColor="var(--text-strong)"
                   className="text-5xl font-extrabold md:text-6xl lg:text-7xl"
                 />
-              </p>
+              </h2>
               <TextReveal>
                 Recent builds with production-ready polish.
               </TextReveal>
@@ -453,10 +461,7 @@ export default function Home() {
                     >
                       <BentoCard
                         name={project.title}
-                        description={`${project.category} — ${project.description}`}
-                        href="#contact"
-                        cta="View details"
-                        Icon={meta.icon}
+                        link={project.link}
                         className="h-full"
                         background={
                           <div
@@ -464,10 +469,15 @@ export default function Home() {
                             role="button"
                             tabIndex={0}
                             aria-label={`Preview ${project.title} screenshot`}
-                            onClick={() => setPreviewIndex(index)}
+                            onMouseEnter={() => play('hover')}
+                            onClick={() => {
+                              play('open');
+                              setPreviewIndex(index);
+                            }}
                             onKeyDown={(event) => {
                               if (event.key === 'Enter' || event.key === ' ') {
                                 event.preventDefault();
+                                play('open');
                                 setPreviewIndex(index);
                               }
                             }}
@@ -475,6 +485,7 @@ export default function Home() {
                             <Safari
                               url={`hakaluki.dev/${slugify(project.title)}`}
                               imageSrc={project.image}
+                              imageAlt={`${project.title} — ${project.category} project screenshot by hakaluki.dev`}
                               mode="simple"
                               className="shrink-0 transition-transform duration-500 group-hover:scale-[1.02]"
                               style={{ width: '100%', height: 'auto' }}
@@ -495,7 +506,11 @@ export default function Home() {
                   type="button"
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={() => setProjectsExpanded((prev) => !prev)}
+                  onMouseEnter={() => play('hover')}
+                  onClick={() => {
+                    play('click');
+                    setProjectsExpanded((prev) => !prev);
+                  }}
                   className="cta-btn cta-btn-outline"
                 >
                   {projectsExpanded ? 'Show less' : 'See more'}
@@ -519,13 +534,13 @@ export default function Home() {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="mx-auto mb-10 max-w-3xl">
-              <p className="section-label">
+              <h2 className="section-label">
                 <DiaTextReveal
                   text="About Us"
                   textColor="var(--text-strong)"
                   className="text-5xl font-extrabold md:text-6xl lg:text-7xl"
                 />
-              </p>
+              </h2>
               <TextReveal>
                 Small team energy, senior-level execution.
               </TextReveal>
@@ -567,7 +582,7 @@ export default function Home() {
                           width={168}
                           height={168}
                           sizes="168px"
-                          alt={founder.name}
+                          alt={`${founder.name} — ${founder.roleFull}, hakaluki.dev`}
                           className="founder-photo"
                         />
                       </span>
@@ -592,6 +607,30 @@ export default function Home() {
           </motion.section>
 
           <motion.section
+            id="network"
+            className="section-anchor mt-28"
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="mx-auto mb-14 max-w-3xl">
+              <h2 className="section-label">
+                <DiaTextReveal
+                  text="By The Numbers"
+                  textColor="var(--text-strong)"
+                  className="text-5xl font-extrabold md:text-6xl lg:text-7xl"
+                />
+              </h2>
+              <TextReveal>
+                Live signals from a studio built to move fast, stay reachable, and deliver consistently.
+              </TextReveal>
+            </div>
+
+            <LiveStats theme={theme} />
+          </motion.section>
+
+          <motion.section
             id="reviews"
             className="section-anchor mt-28"
             initial={{ opacity: 0, y: 28 }}
@@ -600,13 +639,13 @@ export default function Home() {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="mx-auto mb-10 max-w-3xl">
-              <p className="section-label">
+              <h2 className="section-label">
                 <DiaTextReveal
                   text="Client Reviews"
                   textColor="var(--text-strong)"
                   className="text-5xl font-extrabold md:text-6xl lg:text-7xl"
                 />
-              </p>
+              </h2>
               <TextReveal>
                 Real feedback from teams we have shipped with — contact us to see more projects.
               </TextReveal>
@@ -650,13 +689,13 @@ export default function Home() {
           >
             <Ripple className="contact-ripple" numCircles={6} mainCircleSize={180} mainCircleOpacity={0.18} />
 
-            <p className="section-label mx-auto mb-10 max-w-3xl">
+            <h2 className="section-label mx-auto mb-10 max-w-3xl">
               <DiaTextReveal
                 text="Contact"
                 textColor="var(--text-strong)"
                 className="text-5xl font-extrabold md:text-6xl lg:text-7xl"
               />
-            </p>
+            </h2>
 
             <div className="contact-intro">
               <TextReveal>
@@ -748,7 +787,10 @@ export default function Home() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 p-4 sm:p-8"
-            onClick={() => setPreviewIndex(null)}
+            onClick={() => {
+              play('close');
+              setPreviewIndex(null);
+            }}
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.96, y: 12 }}
@@ -761,7 +803,11 @@ export default function Home() {
               <button
                 type="button"
                 aria-label="Close preview"
-                onClick={() => setPreviewIndex(null)}
+                onMouseEnter={() => play('hover')}
+                onClick={() => {
+                  play('close');
+                  setPreviewIndex(null);
+                }}
                 className="absolute -top-12 right-0 flex size-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
               >
                 <X className="size-5" />
@@ -790,5 +836,13 @@ export default function Home() {
 
       <SocialDock />
     </>
+  );
+}
+
+export default function Home() {
+  return (
+    <SoundProvider>
+      <HomeContent />
+    </SoundProvider>
   );
 }

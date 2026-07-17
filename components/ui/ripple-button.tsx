@@ -3,6 +3,7 @@
 import React, { MouseEvent, useEffect, useState } from "react"
 
 import { cn } from "@/lib/utils"
+import { useSound } from "@/lib/sound-context"
 
 interface RippleButtonOwnProps {
   rippleColor?: string
@@ -30,11 +31,13 @@ export const RippleButton = React.forwardRef<
       rippleColor = "#ffffff",
       duration = "600ms",
       onClick,
+      onMouseEnter,
       href,
       ...props
     },
     ref
   ) => {
+    const { play } = useSound()
     const [buttonRipples, setButtonRipples] = useState<
       Array<{ x: number; y: number; size: number; key: number }>
     >([])
@@ -56,7 +59,15 @@ export const RippleButton = React.forwardRef<
       event: MouseEvent<HTMLButtonElement & HTMLAnchorElement>
     ) => {
       createRipple(event)
+      play("click")
       onClick?.(event)
+    }
+
+    const handleMouseEnter = (
+      event: MouseEvent<HTMLButtonElement & HTMLAnchorElement>
+    ) => {
+      play("hover")
+      onMouseEnter?.(event)
     }
 
     useEffect(() => {
@@ -114,6 +125,7 @@ export const RippleButton = React.forwardRef<
           href={href}
           className={sharedClassName}
           onClick={handleClick}
+          onMouseEnter={handleMouseEnter}
           ref={ref as React.Ref<HTMLAnchorElement>}
           {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
         >
@@ -126,6 +138,7 @@ export const RippleButton = React.forwardRef<
       <button
         className={sharedClassName}
         onClick={handleClick}
+        onMouseEnter={handleMouseEnter}
         ref={ref as React.Ref<HTMLButtonElement>}
         {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
       >
