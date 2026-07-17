@@ -47,7 +47,7 @@ export function HeroTerminal() {
           className="hero-terminal max-w-none"
           style={{ fontFamily: 'var(--font-doto), monospace' }}
         >
-          <TypingAnimation>&gt; hakaluki --run-pipeline</TypingAnimation>
+          <TypingAnimation duration={110}>&gt; hakaluki --run-pipeline</TypingAnimation>
 
           <AnimatedSpan delay={1000} className="hero-terminal-ok">
             [✓] Business Discovery
