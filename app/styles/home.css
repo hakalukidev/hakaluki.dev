@@ -148,6 +148,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 20px;
+  min-width: 0;
 }
 
 .hero-perks {
@@ -194,6 +195,7 @@
   align-items: flex-end;
   gap: 18px;
   width: 100%;
+  min-width: 0;
   perspective: 1200px;
 }
 
