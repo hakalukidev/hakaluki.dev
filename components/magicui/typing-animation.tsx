@@ -73,13 +73,17 @@ export function TypingAnimation({
 
   return (
     <MotionComponent ref={elementRef} className={cn(className)} {...props}>
-      {displayedText}
-      {cursor && (
-        <span
-          className={cn('typing-caret', done && 'typing-caret-done')}
-          aria-hidden="true"
-        />
-      )}
+      {/* Full text is always present in the markup for crawlers, screen readers, and no-JS clients; the typed-out effect below is purely decorative. */}
+      <span className="sr-only">{children}</span>
+      <span aria-hidden="true">
+        {displayedText}
+        {cursor && (
+          <span
+            className={cn('typing-caret', done && 'typing-caret-done')}
+            aria-hidden="true"
+          />
+        )}
+      </span>
     </MotionComponent>
   );
 }

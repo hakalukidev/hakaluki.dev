@@ -593,6 +593,15 @@
   scroll-margin-top: 120px;
 }
 
+.services-description {
+  margin-top: 14px;
+  max-width: 42rem;
+  font-family: var(--font-baloo2), sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+
 .we-build-strip {
   position: relative;
   z-index: 10;
@@ -869,6 +878,32 @@
 .cta-ripple:disabled {
   opacity: 0.7;
   cursor: not-allowed;
+}
+
+.footer-review-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: 1px solid var(--line-soft);
+  border-radius: 999px;
+  color: var(--text-body);
+  font-family: var(--font-baloo2), sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  text-decoration: none;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.footer-review-link svg {
+  color: #ffb703;
+  fill: #ffb703;
+}
+
+.footer-review-link:hover {
+  color: var(--text-strong);
+  border-color: crimson;
+  background: var(--surface-muted);
 }
 
 .theme-dark .cta-ripple:hover {

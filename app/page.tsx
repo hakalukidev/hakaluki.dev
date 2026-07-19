@@ -12,6 +12,7 @@ import {
   Mail,
   MapPin,
   RotateCcw,
+  Star,
   X,
   Zap,
 } from 'lucide-react';
@@ -359,6 +360,14 @@ function HomeContent() {
               <TextReveal decor={getSectionDecorObjects('services')}>
                 Design, engineering, and AI systems built to launch fast and stay calm under scale.
               </TextReveal>
+              <p className="services-description">
+                Hakaluki.dev is a software development company specializing in custom web applications, mobile
+                apps, AI-powered solutions, business automation, and SaaS platforms. We help startups, founders,
+                and businesses transform ideas into scalable digital products through modern technology and agile
+                development. Our services include custom software development, website design, AI integration,
+                internal business tools, APIs, cloud deployment, and ongoing maintenance. We build reliable,
+                high-performance solutions that accelerate business growth and digital transformation.
+              </p>
             </motion.div>
 
             <div className="services-layout">
@@ -570,6 +579,18 @@ function HomeContent() {
                 and a total team of 25+, we stay small by design — but highly specialized in what
                 we build.
               </p>
+              <p
+                style={{
+                  fontSize: '16px',
+                  lineHeight: 1.8,
+                  color: 'var(--text-muted)',
+                  marginTop: '16px',
+                }}
+              >
+                The name <strong>hakaluki</strong> comes from Hakaluki Haor, one of the largest
+                freshwater wetlands in Bangladesh, near Sylhet — a nod to where our team is
+                rooted and the calm, expansive way we approach engineering problems.
+              </p>
 
             </div>
 
@@ -766,13 +787,33 @@ function HomeContent() {
               </div>
             </div>
 
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.15 }}
+              style={{ marginTop: '48px', textAlign: 'center' }}
+            >
+              <a
+                href="https://g.page/r/CbI4ID0ag6E6EBM/review"
+                target="_blank"
+                rel="noopener noreferrer"
+                onMouseEnter={() => play('hover')}
+                onClick={() => play('click')}
+                className="footer-review-link"
+              >
+                <Star size={14} aria-hidden="true" />
+                Review us on Google
+              </a>
+            </motion.div>
+
             <motion.p
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
               style={{
-                marginTop: '48px',
+                marginTop: '16px',
                 color: 'var(--text-faint)',
                 fontSize: '12px',
                 fontFamily: "'Syne', sans-serif",

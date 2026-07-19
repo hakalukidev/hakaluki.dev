@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Doto, Baloo_2, Anton, Silkscreen } from "next/font/google";
 import "./globals.css";
+import { services } from "./data/services";
+import { founders } from "./data/founders";
 
 const doto = Doto({
   variable: "--font-doto",
@@ -31,12 +33,17 @@ const siteUrl = "https://hakaluki.dev";
 const siteName = "hakaluki.dev";
 const siteTitle = "hakaluki.dev | Web, App & AI Solutions";
 const siteDescription =
-  "hakaluki.dev is a creative studio building fast websites, mobile apps, AI automation, and machine learning solutions for founders and teams.";
+  "hakaluki.dev is a Sylhet, Bangladesh-based software company building fast websites, mobile apps, AI automation, and machine learning solutions for founders and teams worldwide.";
 const ogImage = {
   url: "/logo/hakaluki_logo.png",
   width: 692,
   height: 183,
   alt: "hakaluki.dev logo",
+};
+const orgLogo = {
+  url: "/logo/title_logo.png",
+  width: 512,
+  height: 512,
 };
 
 export const metadata: Metadata = {
@@ -48,6 +55,8 @@ export const metadata: Metadata = {
   description: siteDescription,
   keywords: [
     "hakaluki.dev",
+    "hakaluki",
+    "hakaluki software",
     "web development",
     "app development",
     "AI automation",
@@ -55,6 +64,8 @@ export const metadata: Metadata = {
     "UI/UX design",
     "chatbot development",
     "custom software",
+    "software company Sylhet",
+    "software company Bangladesh",
     "Sylhet Bangladesh software agency",
   ],
   authors: [{ name: "hakaluki.dev", url: siteUrl }],
@@ -94,16 +105,24 @@ export const metadata: Metadata = {
 
 const organizationJsonLd = {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": ["Organization", "ProfessionalService"],
   "@id": `${siteUrl}/#organization`,
   name: siteName,
   legalName: "hakaluki.dev",
+  alternateName: ["Hakaluki", "Hakaluki Dev", "Hakaluki Software"],
+  slogan: "Automate. Innovate. Accelerate.",
   url: siteUrl,
-  logo: `${siteUrl}${ogImage.url}`,
+  logo: {
+    "@type": "ImageObject",
+    url: `${siteUrl}${orgLogo.url}`,
+    width: orgLogo.width,
+    height: orgLogo.height,
+  },
   image: `${siteUrl}${ogImage.url}`,
   description: siteDescription,
   email: "contact@hakaluki.dev",
   telephone: "+8801844902338",
+  priceRange: "$$",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Sylhet",
@@ -137,6 +156,24 @@ const organizationJsonLd = {
     "Custom Software",
     "Ecommerce Solutions",
   ],
+  founder: founders.map((founder) => ({
+    "@type": "Person",
+    name: founder.name,
+    jobTitle: founder.roleFull,
+  })),
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Services",
+    itemListElement: services.map((service) => ({
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: service.title,
+        description: service.description,
+        provider: { "@id": `${siteUrl}/#organization` },
+      },
+    })),
+  },
 };
 
 const websiteJsonLd = {
