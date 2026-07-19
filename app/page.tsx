@@ -24,6 +24,7 @@ import { SocialDock } from '@/components/home/social-dock';
 import { ContactForm } from '@/components/home/contact-form';
 import { LiveStats } from '@/components/home/live-stats';
 import { NoiseTexture } from '@/components/ui/noise-texture';
+import { getSectionDecorObjects } from '@/components/ui/section-decor';
 import { OrbitingCircles } from '@/components/ui/orbiting-circles';
 import { OrbitIcon } from '@/components/ui/orbit-icon';
 import { AvatarCircles } from '@/components/ui/avatar-circles';
@@ -69,6 +70,10 @@ const projectBentoMeta = [
 const slugify = (title: string) => title.toLowerCase().replace(/[^a-z0-9]+/g, '');
 
 const weBuildItems = [
+  '⚡ AI SaaS',
+  '⚡ Mobile Apps',
+  '⚡ Web Apps',
+  '⚡ Developer Tools',
   'CRM Systems',
   'ERP Systems',
   'Learning Management Systems',
@@ -80,6 +85,10 @@ const weBuildItems = [
 ];
 
 const weBuildColors = [
+  '#ffb703', // amber
+  '#fb5607', // bright orange
+  '#3a86ff', // electric blue
+  '#8ac926', // lime
   '#e63946', // crimson red
   '#f4a261', // orange
   '#e9c46a', // gold
@@ -347,7 +356,7 @@ function HomeContent() {
                   className="text-5xl font-extrabold md:text-6xl lg:text-7xl"
                 />
               </h2>
-              <TextReveal>
+              <TextReveal decor={getSectionDecorObjects('services')}>
                 Design, engineering, and AI systems built to launch fast and stay calm under scale.
               </TextReveal>
             </motion.div>
@@ -439,7 +448,7 @@ function HomeContent() {
                   className="text-5xl font-extrabold md:text-6xl lg:text-7xl"
                 />
               </h2>
-              <TextReveal>
+              <TextReveal decor={getSectionDecorObjects('projects')}>
                 Recent builds with production-ready polish.
               </TextReveal>
             </div>
@@ -541,7 +550,7 @@ function HomeContent() {
                   className="text-5xl font-extrabold md:text-6xl lg:text-7xl"
                 />
               </h2>
-              <TextReveal>
+              <TextReveal decor={getSectionDecorObjects('about')}>
                 Small team energy, senior-level execution.
               </TextReveal>
               <p
@@ -622,7 +631,7 @@ function HomeContent() {
                   className="text-5xl font-extrabold md:text-6xl lg:text-7xl"
                 />
               </h2>
-              <TextReveal>
+              <TextReveal decor={getSectionDecorObjects('network')}>
                 Live signals from a studio built to move fast, stay reachable, and deliver consistently.
               </TextReveal>
             </div>
@@ -646,7 +655,7 @@ function HomeContent() {
                   className="text-5xl font-extrabold md:text-6xl lg:text-7xl"
                 />
               </h2>
-              <TextReveal>
+              <TextReveal decor={getSectionDecorObjects('reviews')}>
                 Real feedback from teams we have shipped with — contact us to see more projects.
               </TextReveal>
             </div>
@@ -698,7 +707,7 @@ function HomeContent() {
             </h2>
 
             <div className="contact-intro">
-              <TextReveal>
+              <TextReveal decor={getSectionDecorObjects('contact')}>
                 Ready to plan your next build?
               </TextReveal>
 

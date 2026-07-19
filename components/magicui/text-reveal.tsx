@@ -1,6 +1,7 @@
 "use client"
 
 import {
+  Fragment,
   useRef,
   type ComponentPropsWithoutRef,
   type FC,
@@ -12,9 +13,10 @@ import { cn } from "@/lib/utils"
 
 export interface TextRevealProps extends ComponentPropsWithoutRef<"div"> {
   children: string
+  decor?: ReactNode[]
 }
 
-export const TextReveal: FC<TextRevealProps> = ({ children, className }) => {
+export const TextReveal: FC<TextRevealProps> = ({ children, className, decor }) => {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -27,25 +29,47 @@ export const TextReveal: FC<TextRevealProps> = ({ children, className }) => {
 
   const words = children.split(" ")
 
+  const decorAfterWord = new Map<number, ReactNode[]>()
+  if (decor && decor.length > 0) {
+    const step = words.length / (decor.length + 1)
+    let lastIndex = -1
+    decor.forEach((node, i) => {
+      const idealIndex = clampIndex(Math.round(step * (i + 1)) - 1, words.length - 1)
+      const wordIndex = clampIndex(Math.max(idealIndex, lastIndex + 1), words.length - 1)
+      lastIndex = wordIndex
+      const existing = decorAfterWord.get(wordIndex)
+      if (existing) {
+        existing.push(node)
+      } else {
+        decorAfterWord.set(wordIndex, [node])
+      }
+    })
+  }
+
   return (
     <div ref={containerRef} className={cn("relative", className)}>
       <span
-        className="flex max-w-md flex-wrap text-base font-medium md:text-lg lg:text-xl"
+        className="flex max-w-md flex-wrap items-center text-base font-medium md:text-lg lg:text-xl"
         style={{ fontFamily: "var(--font-silkscreen), sans-serif" }}
       >
         {words.map((word, i) => {
           const start = i / words.length
           const end = start + 1 / words.length
           return (
-            <Word key={i} progress={scrollYProgress} range={[start, end]}>
-              {word}
-            </Word>
+            <Fragment key={i}>
+              <Word progress={scrollYProgress} range={[start, end]}>
+                {word}
+              </Word>
+              {decorAfterWord.get(i)}
+            </Fragment>
           )
         })}
       </span>
     </div>
   )
 }
+
+const clampIndex = (value: number, max: number) => Math.min(max, Math.max(0, value))
 
 interface WordProps {
   children: ReactNode

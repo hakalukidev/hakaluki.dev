@@ -123,7 +123,7 @@ const organizationJsonLd = {
     "https://www.facebook.com/hakaluki.dev",
     "https://www.instagram.com/hakaluki.dev/",
     "https://www.linkedin.com/company/131984355",
-    "https://x.com/hakaluki_dev",
+    "https://x.com/hakalukidev",
     "https://github.com/hakalukidev",
   ],
   areaServed: "Worldwide",

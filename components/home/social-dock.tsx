@@ -52,7 +52,7 @@ const socialLinks = [
   { label: 'Facebook', href: 'https://www.facebook.com/hakaluki.dev', icon: Icons.facebook },
   { label: 'Instagram', href: 'https://www.instagram.com/hakaluki.dev/', icon: Icons.instagram },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/company/131984355', icon: Icons.linkedin },
-  { label: 'X', href: 'https://x.com/hakaluki_dev', icon: Icons.x },
+  { label: 'X', href: 'https://x.com/hakalukidev', icon: Icons.x },
   { label: 'GitHub', href: 'https://github.com/hakalukidev', icon: Icons.github },
 ];
 
