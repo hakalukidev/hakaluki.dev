@@ -10,7 +10,7 @@ if (typeof window !== 'undefined') {
 
 type ShapeKind = 'quarter' | 'burst' | 'zigzag' | 'squiggle';
 
-type Variant = 'services' | 'projects' | 'about' | 'network' | 'reviews' | 'contact';
+type Variant = 'services' | 'projects' | 'about' | 'network' | 'reviews' | 'faq' | 'contact';
 
 interface ShapeConfig {
   shape: ShapeKind;
@@ -54,6 +54,13 @@ const VARIANT_CONFIG: Record<Variant, ShapeConfig[]> = {
     { shape: 'squiggle', color: '#f472b6', size: 0.8, depth: 0.75 },
     { shape: 'burst', color: '#2a9d8f', size: 0.7, depth: 0.95 },
     { shape: 'zigzag', color: '#8338ec', size: 0.55, depth: 1.2 },
+  ],
+  faq: [
+    { shape: 'quarter', color: '#3a86ff', size: 0.9, depth: 0.55 },
+    { shape: 'burst', color: '#ffb703', size: 0.85, depth: 1 },
+    { shape: 'squiggle', color: '#e63946', size: 0.75, depth: 0.7 },
+    { shape: 'zigzag', color: '#8ac926', size: 0.8, depth: 1.15 },
+    { shape: 'quarter', color: '#8338ec', size: 0.55, depth: 0.6 },
   ],
   contact: [
     { shape: 'squiggle', color: '#8338ec', size: 1, depth: 0.7 },

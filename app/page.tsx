@@ -11,6 +11,7 @@ import {
   Headset,
   Mail,
   MapPin,
+  Phone,
   RotateCcw,
   Star,
   X,
@@ -23,6 +24,7 @@ import { ServiceMark } from '@/components/home/service-mark';
 import { HeroTerminal } from '@/components/home/hero-terminal';
 import { SocialDock } from '@/components/home/social-dock';
 import { ContactForm } from '@/components/home/contact-form';
+import { FaqAccordion } from '@/components/home/faq-accordion';
 import { LiveStats } from '@/components/home/live-stats';
 import { NoiseTexture } from '@/components/ui/noise-texture';
 import { getSectionDecorObjects } from '@/components/ui/section-decor';
@@ -71,33 +73,40 @@ const projectBentoMeta = [
 const slugify = (title: string) => title.toLowerCase().replace(/[^a-z0-9]+/g, '');
 
 const weBuildItems = [
-  '⚡ AI SaaS',
-  '⚡ Mobile Apps',
-  '⚡ Web Apps',
-  '⚡ Developer Tools',
-  'CRM Systems',
-  'ERP Systems',
-  'Learning Management Systems',
+  'AI Automation',
+  'Custom Software',
+  'Business Dashboards',
+  'AI Agents',
+  'SaaS Platforms',
   'E-commerce',
-  'Custom Chatbots',
-  'Accessibility Apps',
-  'Landing Pages',
-  'Conference Websites',
+  'Mobile Apps',
+  'Business Websites',
+  'Healthcare Software',
+  'Internal Business Tools',
+  'CRM Solutions',
+  'Machine Learning',
+  'Workflow Automation',
+  'API Integrations',
+  'Enterprise Software',
+  'Learning Platforms',
 ];
 
 const weBuildColors = [
-  '#ffb703', // amber
-  '#fb5607', // bright orange
+  '#06d6a0', // mint
   '#3a86ff', // electric blue
   '#8ac926', // lime
-  '#e63946', // crimson red
-  '#f4a261', // orange
-  '#e9c46a', // gold
-  '#2a9d8f', // teal
-  '#457b9d', // blue
   '#8338ec', // violet
+  '#ffb703', // amber
+  '#2a9d8f', // teal
+  '#fb5607', // bright orange
   '#ff6b9d', // pink
-  '#06d6a0', // mint
+  '#e63946', // crimson red
+  '#457b9d', // blue
+  '#f4a261', // orange
+  '#7b2cbf', // deep purple
+  '#00b4d8', // cyan
+  '#90be6d', // sage green
+  '#bc6c25', // bronze
 ];
 
 const founderHighlightColors = [
@@ -275,8 +284,8 @@ function HomeContent() {
                   transition={{ delay: 0.55 }}
                   className="hero-copy"
                 >
-                  A focused digital studio building websites, apps, and AI-powered experiences
-                  with thoughtful execution and a calm visual edge.
+                  Helping businesses replace repetitive work with scalable software and AI
+                  automation.
                 </motion.p>
 
                 <motion.div
@@ -710,6 +719,30 @@ function HomeContent() {
           </motion.section>
 
           <motion.section
+            id="faq"
+            className="section-anchor mt-28 max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="mx-auto mb-10 max-w-3xl">
+              <h2 className="section-label">
+                <DiaTextReveal
+                  text="FAQ"
+                  textColor="var(--text-strong)"
+                  className="text-5xl font-extrabold md:text-6xl lg:text-7xl"
+                />
+              </h2>
+              <TextReveal decor={getSectionDecorObjects('faq')}>
+                Answers to what clients ask us most before we start building.
+              </TextReveal>
+            </div>
+
+            <FaqAccordion />
+          </motion.section>
+
+          <motion.section
             id="contact"
             className="section-anchor contact-section mt-28"
             initial={{ opacity: 0, y: 28 }}
@@ -721,7 +754,7 @@ function HomeContent() {
 
             <h2 className="section-label mx-auto mb-10 max-w-3xl">
               <DiaTextReveal
-                text="Contact"
+                text="Start Your Project"
                 textColor="var(--text-strong)"
                 className="text-5xl font-extrabold md:text-6xl lg:text-7xl"
               />
@@ -754,8 +787,10 @@ function HomeContent() {
                   rippleColor="rgba(255,255,255,0.7)"
                   className="cta-ripple mt-8 self-start"
                 >
-                  Schedule a Meeting
-                  <span style={{ fontSize: 18, lineHeight: 1 }}>↗</span>
+                  <span className="flex items-center gap-2 whitespace-nowrap">
+                    Book Free Consultation
+                    <Phone size={16} strokeWidth={2.25} />
+                  </span>
                 </RippleButton>
 
                 <div className="contact-list">

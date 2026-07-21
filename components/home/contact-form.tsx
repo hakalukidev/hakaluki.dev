@@ -202,7 +202,7 @@ export function ContactForm() {
         ) : (
           <>
           <p className="flex items-center gap-2">
-            Send Message
+            Request a Proposal
             <ArrowUpRight className="size-4" aria-hidden="true" /></p>
           </>
         )}
